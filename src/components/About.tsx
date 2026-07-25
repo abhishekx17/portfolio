@@ -13,14 +13,14 @@ const metrics = [
   },
   {
     icon: Layers,
-    value: "4+",
+    value: "2",
     label: "Full-Stack Apps",
-    subtext: "HRMS, E-Commerce, & Dashboards",
+    subtext: "HRMS & E-Commerce Platforms",
   },
   {
     icon: Code,
     value: "MERN",
-    label: "Stack Specialization",
+    label: "Core Stack",
     subtext: "MongoDB, Express, React, Node",
   },
 ];
@@ -32,7 +32,7 @@ export function About() {
         <SectionHeading
           index="01"
           title="About Me"
-          subtitle="Engineering modern full-stack web applications with strong computer science foundations and clean architecture."
+          subtitle="I build full-stack apps that actually work — clean code, solid architecture, no shortcuts."
         />
 
         {/* Metric Highlight Cards */}
@@ -134,6 +134,8 @@ export function About() {
                   &nbsp;&nbsp;location: <span className="text-ink">"{personalInfo.location}"</span>,
                   <br />
                   &nbsp;&nbsp;skills: [<span className="text-ink">"MERN"</span>, <span className="text-ink">"TypeScript"</span>, <span className="text-ink">"REST APIs"</span>],
+                  <br />
+                  &nbsp;&nbsp;role: <span className="text-ink">"Open to SDE / Full-Stack roles"</span>,
                   <br />
                   &nbsp;&nbsp;status: <span className="text-emerald-500 font-semibold">"Seeking Opportunities"</span>
                   <br />

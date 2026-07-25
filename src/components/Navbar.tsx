@@ -18,7 +18,7 @@ export function Navbar() {
     const onScroll = () => {
       setScrolled(window.scrollY > 30);
 
-      const sections = ["about", "stack", "projects", "contact"];
+      const sections = ["about", "stack", "projects", "activity", "contact"];
       const current = sections.find((sec) => {
         const el = document.getElementById(sec);
         if (el) {

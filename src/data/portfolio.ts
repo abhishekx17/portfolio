@@ -6,15 +6,15 @@ import weatherscopeImg from "../assets/projects/weatherscope.png";
 export const personalInfo = {
   name: "Abhishek",
   fullName: "Abhishek Kumar",
-  title: "MERN Stack Developer",
+  title: "Full-Stack Web Developer",
   tagline:
-    "Building high-performance full-stack web applications with clean code, modern UI aesthetics, and scalable backend architecture.",
+    "Full-stack web developer building performant applications with React, Node.js, Express, MongoDB, and TypeScript.",
   email: "abhishek.0x17@gmail.com",
   location: "India",
   github: "https://github.com/abhishekx17",
   linkedin: "https://www.linkedin.com/in/abhishek-kumar-805194380/",
   resumeUrl: "/resume.pdf",
-  availability: "Available for Projects & Roles",
+  availability: "Available for Software Engineering Roles",
 
   // Education details
   degree: "B.Tech in Computer Science & Engineering",
@@ -28,78 +28,78 @@ export const resumeDetails = {
   fileSize: "Official Resume • PDF",
   resumeUrl: "/resume.pdf",
   candidateName: "Abhishek Kumar",
-  title: "MERN Stack Developer",
+  title: "Full-Stack Web Developer",
   education: "B.Tech CSE (2022–2026)",
   college: "Sri Sukhmani Institute of Eng. & Tech (PTU)",
   location: "India",
-  primarySkills: ["React", "Node.js", "Express", "MongoDB", "TypeScript", "Tailwind CSS"],
+  primarySkills: ["React", "Node.js", "Express.js", "MongoDB", "TypeScript", "Tailwind CSS"],
   highlights: [
-    "4+ Production Web Applications Built",
-    "RESTful API & JWT Auth Architecture",
-    "Cloudinary & Razorpay Payment Integration",
-    "Clean Code & Modern Responsive UI",
+    "Full-Stack Web Applications (MERN & TypeScript)",
+    "RESTful API & JWT Authentication Architecture",
+    "Database Modeling & Cloud Services Integration",
+    "Responsive, Accessible User Interface Design",
   ],
 };
 
 export const aboutParagraphs = [
-  "I am a B.Tech Computer Science & Engineering student (2022–2026) at Sri Sukhmani Institute of Engineering and Technology (PTU) with a strong passion for full-stack web engineering.",
-  "Specializing in the MERN stack (MongoDB, Express.js, React, Node.js) and TypeScript, I build performant web applications, clean API architectures, and responsive user interfaces.",
+  "I'm a CS undergrad (2022–2026) who spends most of his time building things end-to-end — from database schema to the UI someone actually clicks on. I care about code that's easy to read six months later, not just code that works today.",
+  "Right now I'm looking for opportunities where I can keep building real products and leveling up alongside a team.",
 ];
 
 export const techStack = [
   {
     name: "React",
     category: "Frontend",
-    description: "Component UIs, State Management, Custom Hooks, & Framer Motion.",
+    description: "Component-driven UIs, state management, custom hooks, and Framer Motion.",
     iconKey: "react",
     level: "Expert",
   },
   {
     name: "Node.js",
     category: "Backend",
-    description: "Event-driven backends, async event loops, & server APIs.",
+    description: "Event-driven backend services and asynchronous API runtimes.",
     iconKey: "node",
     level: "Advanced",
   },
   {
     name: "MongoDB",
     category: "Database",
-    description: "NoSQL data modeling, aggregation pipelines, & Atlas cloud.",
+    description: "Document modeling, aggregation pipelines, and cloud database integration.",
     iconKey: "mongo",
     level: "Advanced",
   },
   {
     name: "Express.js",
     category: "Backend",
-    description: "RESTful API design, middleware architecture, & JWT authentication.",
+    description: "RESTful API routes, middleware validation, and JWT authentication.",
     iconKey: "express",
     level: "Advanced",
   },
   {
     name: "TypeScript",
     category: "Language",
-    description: "Type-safe codebases for scalable full-stack web apps.",
+    description: "Static typing for scalable full-stack application codebases.",
     iconKey: "typescript",
     level: "Intermediate",
   },
   {
     name: "Tailwind CSS",
     category: "Styling",
-    description: "Utility-first styling, dark theme systems, & responsive UI.",
+    description: "Utility-first styling system for responsive web application layouts.",
     iconKey: "tailwind",
     level: "Expert",
   },
   {
     name: "Git & GitHub",
     category: "Tools",
-    description: "Version control, branching workflows, & CI/CD basics.",
+    description: "Version control, feature branching, and collaborative repositories.",
     iconKey: "git",
     level: "Advanced",
   },
   {
     name: "REST APIs",
     category: "Backend",
-    description: "Designing, documenting, & consuming HTTP JSON endpoints.",
+    description: "Designing, documenting, and integrating JSON HTTP endpoints.",
     iconKey: "rest",
     level: "Expert",
   },
@@ -111,12 +111,12 @@ export const projects = [
     title: "QuickEMS",
     domainUrl: "quick-ems-iota.vercel.app",
     overview:
-      "HR & Employee Management platform with automated payroll, attendance tracking, and admin dashboard.",
+      "Employee management platform with role-based auth, payroll automation, and leave workflows.",
     description:
-      "QuickEMS streamlines workforce management with role-based auth (Admin/Employee), leave approval workflows, automatic payslip generation, real-time metrics, and attendance tracking built on MERN stack.",
+      "QuickEMS simplifies workforce administration through role-based access control (Admin & Employee), automated payslip generation, attendance logs, and an analytical dashboard built on the MERN stack.",
     image: quickemsImg,
-    highlights: ["HR Analytics Dashboard", "JWT Auth", "Payroll System", "Leave Approvals"],
-    tags: ["React", "Node.js", "Express.js", "MongoDB", "JWT", "Tailwind CSS"],
+    highlights: ["Payroll System", "JWT Auth"],
+    tags: ["React", "Node.js", "MongoDB"],
     github: "https://github.com/abhishekx17/QuickEMS",
     live: "https://quick-ems-iota.vercel.app/login",
   },
@@ -125,42 +125,14 @@ export const projects = [
     title: "Velora",
     domainUrl: "velora-rho-one.vercel.app",
     overview:
-      "Full-stack MERN e-commerce platform with Cloudinary image upload, Razorpay payments, and admin panel.",
+      "E-commerce application with product catalog, cart state, Cloudinary uploads, and payment gateway.",
     description:
-      "Velora provides a seamless e-commerce storefront with product search, category filter, cart & wishlist management, Cloudinary image hosting, Razorpay payment gateway integration, and a seller admin portal.",
+      "Velora is an e-commerce platform offering product search and filtering, cart management, Cloudinary media hosting, Razorpay payment processing, and an admin management portal.",
     image: veloraImg,
-    highlights: ["Razorpay Gateway", "Cloudinary Uploads", "Admin Panel", "Cart & Wishlist"],
-    tags: ["React", "Node.js", "Express", "MongoDB", "Tailwind CSS", "Razorpay"],
+    highlights: ["Razorpay Payments", "Cloudinary Hosting"],
+    tags: ["React", "Node.js", "MongoDB"],
     github: "https://github.com/abhishekx17/E-commerce",
     live: "https://velora-rho-one.vercel.app/",
-  },
-  {
-    id: "03",
-    title: "ShopNest",
-    domainUrl: "shopnest-demo.vercel.app",
-    overview:
-      "Modern e-commerce platform with reactive cart management, Stripe checkout, and order tracking.",
-    description:
-      "Built with Redux Toolkit for state management, ShopNest delivers real-time cart updates, secure multi-currency Stripe payment processing, and responsive product filter layouts.",
-    image: shopnestImg,
-    highlights: ["Stripe Checkout", "Redux State", "Order Tracking", "Responsive Layout"],
-    tags: ["React", "Redux", "Node.js", "Stripe", "Tailwind CSS"],
-    github: "https://github.com/abhishekx17",
-    live: "https://shopnest-demo.vercel.app",
-  },
-  {
-    id: "04",
-    title: "WeatherScope",
-    domainUrl: "weatherscope-demo.vercel.app",
-    overview:
-      "Location-aware weather app delivering 7-day forecast metrics, interactive radar maps, and alerts.",
-    description:
-      "WeatherScope combines OpenWeather API with geolocation, featuring 7-day temperature forecast graphs, humidity radar metrics, and clean glassmorphism UI.",
-    image: weatherscopeImg,
-    highlights: ["7-Day Forecast", "Geolocation API", "Radar Metrics", "Glassmorphism"],
-    tags: ["React", "TypeScript", "OpenWeather API", "Framer Motion"],
-    github: "https://github.com/abhishekx17",
-    live: "https://weatherscope-demo.vercel.app",
   },
 ];
 
@@ -168,5 +140,6 @@ export const navLinks = [
   { label: "About", href: "#about" },
   { label: "Tech Stack", href: "#stack" },
   { label: "Projects", href: "#projects" },
+  { label: "Activity", href: "#activity" },
   { label: "Contact", href: "#contact" },
 ];

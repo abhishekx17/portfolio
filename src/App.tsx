@@ -3,6 +3,7 @@ import { Hero } from "./components/Hero";
 import { About } from "./components/About";
 import { TechStack } from "./components/TechStack";
 import { Projects } from "./components/Projects";
+import { GithubActivity } from "./components/GithubActivity";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
 
@@ -16,6 +17,7 @@ function App() {
         <About />
         <TechStack />
         <Projects />
+        <GithubActivity />
         <Contact />
       </main>
       <Footer />

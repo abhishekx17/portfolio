@@ -22,7 +22,7 @@ export function Contact() {
 
       <div className="mx-auto max-w-6xl px-6 md:px-8 relative">
         <SectionHeading
-          index="04"
+          index="05"
           title="Get In Touch"
           subtitle="Have a project idea, job opportunity, or just want to connect? Feel free to reach out."
         />

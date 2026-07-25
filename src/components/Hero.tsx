@@ -119,7 +119,7 @@ export function Hero() {
             >
               <div className="flex items-center gap-2">
                 <Layers className="h-4 w-4 text-ink-faint" />
-                <span>4+ Production Apps</span>
+                <span>2 Production Web Apps</span>
               </div>
               <div className="flex items-center gap-2">
                 <Code2 className="h-4 w-4 text-ink-faint" />

@@ -28,6 +28,7 @@ Edit **`src/data/portfolio.ts`** to update:
 - **Vite** — fast dev server & build
 - **Tailwind CSS v4** — minimal styling
 - **Framer Motion** — smooth scroll & hover animations
+- **GitHub Live API** — real-time contribution heatmap & activity event feed
 - **Lucide React** — icons
 
 ## Deploy
