@@ -1,15 +1,17 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Code2, Globe, Layers, Mail, MapPin, Sparkles } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import {
-  ReactLogo,
-  NodeLogo,
-  MongoLogo,
-  ExpressLogo,
-  TypeScriptLogo,
-  TailwindLogo,
-  GitLogo,
-} from "./icons/TechLogos";
+  ArrowUpRight,
+  Code2,
+  Globe,
+  Layers,
+  MapPin,
+  Download,
+  Eye,
+  FileText,
+  CheckCircle2,
+  ZoomIn,
+} from "lucide-react";
 import { personalInfo } from "../data/portfolio";
 import { smoothEase } from "../lib/motion";
 
@@ -29,31 +31,24 @@ const item = {
   },
 };
 
-const floatingTech = [
-  { name: "React", logo: ReactLogo, category: "Frontend" },
-  { name: "Node.js", logo: NodeLogo, category: "Backend" },
-  { name: "Express.js", logo: ExpressLogo, category: "Backend" },
-  { name: "MongoDB", logo: MongoLogo, category: "Database" },
-  { name: "TypeScript", logo: TypeScriptLogo, category: "Language" },
-  { name: "Tailwind CSS", logo: TailwindLogo, category: "Styling" },
-  { name: "Git", logo: GitLogo, category: "Tools" },
-];
-
 export function Hero() {
-  return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden pt-32 pb-20">
-      {/* Subtle Grid Background */}
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
+  const [imageError, setImageError] = useState(false);
 
-      <div className="relative mx-auto w-full max-w-6xl px-6 md:px-8">
+  return (
+    <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden pt-28 pb-16">
+      {/* Subtle Grid & Glow Background */}
+      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
+      <div className="absolute top-1/3 right-12 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8">
         <motion.div
           variants={container}
           initial="hidden"
           animate="visible"
-          className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+          className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center"
         >
-          {/* Left Column: Main Headline & CTA */}
-          <div className="lg:col-span-7 space-y-7">
+          {/* Left Column: Headline & Action Buttons */}
+          <div className="lg:col-span-7 space-y-6 sm:space-y-7">
             {/* Availability Badge */}
             <motion.div variants={item} className="flex flex-wrap items-center gap-3">
               <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink shadow-xs">
@@ -72,16 +67,16 @@ export function Hero() {
 
             {/* Display Headline */}
             <motion.div variants={item}>
-              <h1 className="font-display text-[clamp(2.5rem,5.8vw,5rem)] font-extrabold leading-[1.02] tracking-tight text-ink">
+              <h1 className="font-display text-[clamp(2.4rem,5.2vw,4.5rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
                 Architecting <br />
                 <span className="text-gradient">Full-Stack Web</span> Experiences.
               </h1>
             </motion.div>
 
-            {/* Subtitle / Tagline */}
+            {/* Subtitle */}
             <motion.p
               variants={item}
-              className="max-w-xl text-base md:text-lg text-ink-muted leading-relaxed font-normal"
+              className="max-w-xl text-base sm:text-lg text-ink-muted leading-relaxed font-normal"
             >
               Hi, I'm <strong className="text-ink font-semibold">{personalInfo.fullName}</strong> — a MERN Stack Developer building high-performance web applications, clean API architectures, and modern user interfaces.
             </motion.p>
@@ -89,20 +84,31 @@ export function Hero() {
             {/* Action Buttons */}
             <motion.div
               variants={item}
-              className="flex flex-wrap items-center gap-4 pt-1"
+              className="flex flex-wrap items-center gap-3 pt-1"
             >
               <a
                 href="#projects"
-                className="group inline-flex items-center gap-2.5 rounded-full bg-ink px-7 py-3.5 text-xs font-bold text-primary hover:opacity-90 transition-all duration-300 shadow-md hover:scale-[1.02]"
+                className="group inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-xs font-bold text-primary hover:opacity-90 transition-all duration-300 shadow-md hover:scale-[1.02]"
               >
                 View Selected Work
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
+
+              <a
+                href={personalInfo.resumeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-accent/40 bg-accent/10 px-5 py-3 text-xs font-bold text-accent hover:bg-accent/20 transition-all duration-300 shadow-xs"
+              >
+                <FileText className="h-4 w-4" />
+                View Resume
+              </a>
+
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-7 py-3.5 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
               >
-                Get In Touch
+                Contact
               </a>
             </motion.div>
 
@@ -126,70 +132,129 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column: Floating Interactive Tech Badge Matrix & Metrics (ZERO CARDS!) */}
-          <motion.div variants={item} className="lg:col-span-5 space-y-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-accent">
-                <Sparkles className="h-3.5 w-3.5" />
-                Core Technologies & Tools
+          {/* Right Column: Coder UI Window with Resume Preview Image */}
+          <motion.div variants={item} className="lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="w-full max-w-sm sm:max-w-md rounded-2xl border border-border bg-surface-elevated shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
+              {/* Window Header */}
+              <div className="flex items-center justify-between border-b border-border bg-surface/80 px-4 py-3 select-none">
+                <div className="flex items-center gap-2">
+                  <span className="h-3 w-3 rounded-full bg-red-500/80 inline-block" />
+                  <span className="h-3 w-3 rounded-full bg-amber-500/80 inline-block" />
+                  <span className="h-3 w-3 rounded-full bg-emerald-500/80 inline-block" />
+                </div>
+
+                <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-surface-elevated px-3 py-1 text-xs font-mono font-medium text-ink-muted">
+                  <FileText className="h-3.5 w-3.5 text-accent" />
+                  <span className="truncate max-w-[150px]">Abhishek_Resume.pdf</span>
+                </div>
+
+                <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-emerald-500">
+                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  PREVIEW
+                </span>
               </div>
 
-              {/* Floating Pill Matrix */}
-              <div className="flex flex-wrap gap-2.5">
-                {floatingTech.map((tech, idx) => {
-                  const LogoComponent = tech.logo;
-                  return (
-                    <motion.div
-                      key={tech.name}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.2 + idx * 0.05, duration: 0.4 }}
-                      whileHover={{ y: -3, scale: 1.03 }}
-                      className="flex items-center gap-2.5 rounded-full border border-border bg-surface/90 px-4 py-2 text-xs font-bold text-ink shadow-xs hover:border-accent/40 hover:bg-surface transition-all cursor-default"
+              {/* Window Content: Resume Image Preview Container */}
+              <div className="p-4 bg-surface/50">
+                <div className="relative group/preview overflow-hidden rounded-xl border border-border bg-surface shadow-xs transition-all">
+                  {!imageError ? (
+                    <img
+                      src="/resume-preview.png"
+                      alt="Abhishek Kumar Resume Preview"
+                      onError={() => setImageError(true)}
+                      className="w-full max-h-[380px] object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
+                    />
+                  ) : (
+                    /* Styled Fallback Resume Card if image file hasn't been placed in public/ folder yet */
+                    <div className="p-5 space-y-4 bg-surface text-ink font-sans text-xs">
+                      <div className="flex items-center justify-between border-b border-border/80 pb-3">
+                        <div>
+                          <h3 className="font-display font-extrabold text-base text-ink">{personalInfo.fullName}</h3>
+                          <p className="text-accent font-semibold text-xs mt-0.5">{personalInfo.title}</p>
+                        </div>
+                        <span className="rounded-full bg-accent/15 text-accent border border-accent/30 px-2.5 py-1 text-[10px] font-bold">
+                          CV PREVIEW
+                        </span>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">Education</p>
+                        <p className="font-semibold text-ink text-xs">{personalInfo.degree}</p>
+                        <p className="text-ink-muted text-[11px]">{personalInfo.college}</p>
+                      </div>
+
+                      <div className="space-y-1.5">
+                        <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">Key Technical Skills</p>
+                        <div className="flex flex-wrap gap-1">
+                          {["React", "Node.js", "Express", "MongoDB", "TypeScript", "Tailwind CSS"].map((sk) => (
+                            <span key={sk} className="rounded bg-surface-elevated border border-border px-2 py-0.5 text-[11px] font-medium text-ink-muted">
+                              {sk}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-1.5 pt-1">
+                        <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">Highlighted Experience</p>
+                        <ul className="space-y-1 text-ink-muted text-[11px]">
+                          <li className="flex items-center gap-1.5">
+                            <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
+                            <span>QuickEMS — HR Management Platform with MERN</span>
+                          </li>
+                          <li className="flex items-center gap-1.5">
+                            <CheckCircle2 className="h-3 w-3 text-emerald-500 shrink-0" />
+                            <span>Velora — E-Commerce with Razorpay & Cloudinary</span>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Hover Overlay */}
+                  <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px] opacity-0 group-hover/preview:opacity-100 transition-opacity flex items-center justify-center gap-3 p-4">
+                    <a
+                      href={personalInfo.resumeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-accent px-4 py-2 text-xs font-bold text-primary shadow-lg hover:scale-105 transition-transform"
                     >
-                      <LogoComponent className="h-4 w-4 shrink-0" />
-                      <span>{tech.name}</span>
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Floating Metric Counters (No Card Container!) */}
-            <div className="grid grid-cols-2 gap-6 pt-4 border-t border-border/60">
-              <div>
-                <span className="font-display text-3xl font-extrabold text-ink">4+</span>
-                <p className="text-xs font-semibold text-ink-muted mt-1">Full-Stack Projects Built</p>
-                <p className="text-[11px] text-ink-faint">HRMS, E-Commerce, & Dashboards</p>
+                      <ZoomIn className="h-3.5 w-3.5" />
+                      Expand View
+                    </a>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <span className="font-display text-3xl font-extrabold text-accent">100%</span>
-                <p className="text-xs font-semibold text-ink-muted mt-1">Clean API Architecture</p>
-                <p className="text-[11px] text-ink-faint">JWT Auth, MongoDB, & Express</p>
-              </div>
-            </div>
-
-            {/* Floating Quick Social Links (No Card Container!) */}
-            <div className="pt-2 flex items-center justify-between">
-              <span className="text-xs font-bold text-ink-faint uppercase tracking-wider">Connect Directly</span>
-              <div className="flex items-center gap-2">
-                {[
-                  { href: personalInfo.github, icon: GitHubIcon, label: "GitHub" },
-                  { href: personalInfo.linkedin, icon: LinkedInIcon, label: "LinkedIn" },
-                  { href: `mailto:${personalInfo.email}`, icon: Mail, label: "Email" },
-                ].map(({ href, icon: Icon, label }) => (
+              {/* Window Footer / Action Buttons */}
+              <div className="border-t border-border bg-surface px-4 py-3.5">
+                <div className="grid grid-cols-2 gap-2.5">
                   <a
-                    key={label}
-                    href={href}
-                    target={href.startsWith("mailto") ? undefined : "_blank"}
+                    href={personalInfo.resumeUrl}
+                    target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={label}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink-muted hover:text-ink hover:border-accent/40 transition-all duration-300 shadow-xs"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2.5 text-xs font-bold text-primary hover:opacity-90 transition-all shadow-xs"
                   >
-                    <Icon className="h-4 w-4" />
+                    <Eye className="h-3.5 w-3.5" />
+                    <span>View PDF</span>
                   </a>
-                ))}
+
+                  <a
+                    href={personalInfo.resumeUrl}
+                    download="Abhishek_Kumar_Resume.pdf"
+                    className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-xs font-bold text-ink hover:border-accent/40 transition-all shadow-xs"
+                  >
+                    <Download className="h-3.5 w-3.5 text-accent" />
+                    <span>Download</span>
+                  </a>
+                </div>
+
+                <div className="flex items-center justify-between pt-3 text-[11px] font-mono text-ink-faint">
+                  <span className="flex items-center gap-1.5 text-emerald-500 font-medium">
+                    <CheckCircle2 className="h-3 w-3" />
+                    PDF Ready
+                  </span>
+                  <span>B.Tech CSE (2022–2026)</span>
+                </div>
               </div>
             </div>
           </motion.div>

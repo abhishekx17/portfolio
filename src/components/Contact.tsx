@@ -1,7 +1,7 @@
-import { motion } from "framer-motion";
-import { ArrowUpRight, Copy, Mail, Check, Send } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowUpRight, Copy, Mail, Check, Send, MapPin } from "lucide-react";
+import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
 import { personalInfo } from "../data/portfolio";
 import { SectionHeading } from "./SectionHeading";
 import { smoothEase } from "../lib/motion";
@@ -16,120 +16,127 @@ export function Contact() {
   };
 
   return (
-    <section id="contact" className="py-24 md:py-32 bg-surface/40 border-t border-border relative">
+    <section id="contact" className="py-20 md:py-28 bg-surface/30 border-t border-border relative overflow-hidden">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
+
       <div className="mx-auto max-w-6xl px-6 md:px-8 relative">
         <SectionHeading
           index="04"
           title="Get In Touch"
-          subtitle="Have a project idea, job opportunity, or just want to talk tech? Drop a message or connect directly."
+          subtitle="Have a project idea, job opportunity, or just want to connect? Feel free to reach out."
         />
 
-        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, ease: smoothEase }}
-            className="space-y-6"
-          >
-            <h3 className="font-display text-3xl md:text-4xl font-extrabold text-ink leading-tight">
-              Let's Build Something <span className="text-accent">Exceptional</span> Together.
-            </h3>
-            <p className="text-ink-muted leading-relaxed">
-              I am currently open to full-stack developer roles, freelance projects, and technology discussions. Send me an email or click below to copy my address.
-            </p>
+        {/* Refined Centered Contact Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, ease: smoothEase }}
+          className="mx-auto max-w-3xl rounded-3xl border border-border/80 bg-surface-elevated/70 backdrop-blur-xl p-8 sm:p-10 shadow-xl text-center space-y-8"
+        >
+          {/* Header & Availability Badge */}
+          <div className="space-y-4">
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink shadow-xs">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span>Open to Full-Stack Roles & Projects</span>
+            </div>
 
-            {/* Quick Copy Email Card */}
-            <div className="rounded-2xl border border-border bg-surface p-6 glass-card shadow-sm space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-accent uppercase tracking-wider">
-                  Direct Contact
-                </span>
-                <span className="inline-flex items-center gap-1.5 text-xs text-emerald-500 font-medium">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  Available Now
-                </span>
+            <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink">
+              Let's Build Something Great Together
+            </h3>
+
+            <p className="text-sm sm:text-base text-ink-muted leading-relaxed max-w-xl mx-auto font-normal">
+              Whether you're looking for a MERN stack developer, building a new web application, or just want to talk tech — my inbox is open.
+            </p>
+          </div>
+
+          {/* Clean Interactive Email Box */}
+          <div className="max-w-lg mx-auto rounded-2xl border border-border bg-surface p-2 sm:p-2.5 shadow-xs transition-all hover:border-accent/40">
+            <div className="flex flex-col sm:flex-row items-center gap-2">
+              <div className="flex-1 flex items-center gap-3 px-3 py-2 text-xs sm:text-sm font-medium text-ink w-full truncate">
+                <Mail className="h-4 w-4 text-accent shrink-0" />
+                <span className="truncate font-mono">{personalInfo.email}</span>
               </div>
 
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
-                <div className="flex-1 flex items-center gap-3 rounded-xl border border-border bg-surface-elevated px-4 py-3 text-sm font-medium text-ink truncate">
-                  <Mail className="h-4 w-4 text-accent shrink-0" />
-                  <span className="truncate">{personalInfo.email}</span>
-                </div>
+              <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3 text-xs font-bold text-primary hover:bg-accent-dark transition-all shrink-0 shadow-sm"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-xs font-bold text-ink hover:bg-surface transition-all shadow-xs"
                 >
                   {copied ? (
                     <>
-                      <Check className="h-4 w-4" /> Copied!
+                      <Check className="h-3.5 w-3.5 text-emerald-500" />
+                      <span>Copied</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="h-4 w-4" /> Copy Email
+                      <Copy className="h-3.5 w-3.5 text-ink-muted" />
+                      <span>Copy</span>
                     </>
                   )}
                 </button>
+
+                <a
+                  href={`mailto:${personalInfo.email}`}
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2.5 text-xs font-bold text-primary hover:opacity-90 transition-all shadow-xs"
+                >
+                  <Send className="h-3.5 w-3.5" />
+                  <span>Send</span>
+                </a>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: 0.15, ease: smoothEase }}
-            className="space-y-4"
-          >
+          {/* Social Links Row */}
+          <div className="pt-4 border-t border-border/60 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {[
               {
-                label: "GitHub Profile",
-                value: "Explore full-stack repositories & open-source work",
+                label: "GitHub",
                 href: personalInfo.github,
                 icon: GitHubIcon,
               },
               {
-                label: "LinkedIn Network",
-                value: "Connect professionally and check career updates",
+                label: "LinkedIn",
                 href: personalInfo.linkedin,
                 icon: LinkedInIcon,
               },
               {
-                label: "Send Direct Email",
-                value: personalInfo.email,
-                href: `mailto:${personalInfo.email}`,
-                icon: Send,
+                label: personalInfo.location,
+                icon: MapPin,
               },
-            ].map((link, i) => (
-              <motion.a
-                key={link.label}
-                href={link.href}
-                target={link.href.startsWith("mailto") ? undefined : "_blank"}
-                rel="noopener noreferrer"
-                initial={{ opacity: 0, x: 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.15 + i * 0.08, duration: 0.5 }}
-                whileHover={{ x: 4 }}
-                className="group flex items-center justify-between rounded-2xl border border-border bg-surface p-5 glass-card hover:border-accent/40 transition-all duration-300 shadow-sm"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink group-hover:border-accent/40 group-hover:text-accent transition-all duration-300">
-                    <link.icon className="h-5 w-5" />
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-ink text-base group-hover:text-accent transition-colors">
-                      {link.label}
-                    </div>
-                    <div className="text-xs text-ink-muted mt-0.5">{link.value}</div>
-                  </div>
+            ].map((item) => {
+              if (item.href) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-xs font-semibold text-ink-muted hover:text-ink hover:border-accent/40 hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                  >
+                    <item.icon className="h-3.5 w-3.5" />
+                    <span>{item.label}</span>
+                    <ArrowUpRight className="h-3 w-3 text-ink-faint" />
+                  </a>
+                );
+              }
+              return (
+                <div
+                  key={item.label}
+                  className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-surface/50 px-4 py-2 text-xs font-medium text-ink-faint cursor-default"
+                >
+                  <item.icon className="h-3.5 w-3.5" />
+                  <span>{item.label}</span>
                 </div>
-                <ArrowUpRight className="h-4 w-4 text-ink-faint group-hover:text-accent transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </motion.a>
-            ))}
-          </motion.div>
-        </div>
+              );
+            })}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

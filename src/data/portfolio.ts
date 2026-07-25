@@ -13,7 +13,7 @@ export const personalInfo = {
   location: "India",
   github: "https://github.com/abhishekx17",
   linkedin: "https://www.linkedin.com/in/abhishek-kumar-805194380/",
-  resumeUrl: "#",
+  resumeUrl: "/resume.pdf",
   availability: "Available for Projects & Roles",
 
   // Education details
@@ -21,6 +21,24 @@ export const personalInfo = {
   timeline: "2022 – 2026",
   college: "Sri Sukhmani Institute of Engineering and Technology (PTU)",
   university: "IK Gujral Punjab Technical University (PTU)",
+};
+
+export const resumeDetails = {
+  fileName: "Abhishek_Kumar_Resume.pdf",
+  fileSize: "Official Resume • PDF",
+  resumeUrl: "/resume.pdf",
+  candidateName: "Abhishek Kumar",
+  title: "MERN Stack Developer",
+  education: "B.Tech CSE (2022–2026)",
+  college: "Sri Sukhmani Institute of Eng. & Tech (PTU)",
+  location: "India",
+  primarySkills: ["React", "Node.js", "Express", "MongoDB", "TypeScript", "Tailwind CSS"],
+  highlights: [
+    "4+ Production Web Applications Built",
+    "RESTful API & JWT Auth Architecture",
+    "Cloudinary & Razorpay Payment Integration",
+    "Clean Code & Modern Responsive UI",
+  ],
 };
 
 export const aboutParagraphs = [

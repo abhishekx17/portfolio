@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Menu, Moon, Sun, X } from "lucide-react";
+import { ArrowUpRight, Menu, MoonStar, Sparkles, X } from "lucide-react";
 import { navLinks, personalInfo } from "../data/portfolio";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 import { useTheme } from "../hooks/useTheme";
@@ -104,30 +104,30 @@ export function Navbar() {
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={toggleTheme}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink-muted hover:text-ink hover:border-accent/40 transition-all duration-300 shadow-xs"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink hover:border-accent/50 hover:bg-surface-elevated transition-all duration-300 shadow-xs"
                 aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               >
                 <AnimatePresence mode="wait" initial={false}>
                   {theme === "dark" ? (
                     <motion.div
-                      key="sun"
-                      initial={{ rotate: -90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: 90, opacity: 0 }}
+                      key="sparkles"
+                      initial={{ scale: 0.5, rotate: -45, opacity: 0 }}
+                      animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                      exit={{ scale: 0.5, rotate: 45, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Sun className="h-4 w-4 text-amber-300" />
+                      <Sparkles className="h-4 w-4 text-accent" />
                     </motion.div>
                   ) : (
                     <motion.div
-                      key="moon"
-                      initial={{ rotate: 90, opacity: 0 }}
-                      animate={{ rotate: 0, opacity: 1 }}
-                      exit={{ rotate: -90, opacity: 0 }}
+                      key="moonstar"
+                      initial={{ scale: 0.5, rotate: 45, opacity: 0 }}
+                      animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                      exit={{ scale: 0.5, rotate: -45, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Moon className="h-4 w-4 text-amber-700" />
+                      <MoonStar className="h-4 w-4 text-ink-muted hover:text-ink" />
                     </motion.div>
                   )}
                 </AnimatePresence>
