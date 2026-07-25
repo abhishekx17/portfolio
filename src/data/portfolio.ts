@@ -1,7 +1,5 @@
 import quickemsImg from "../assets/projects/quickems.png";
 import veloraImg from "../assets/projects/velora.png";
-import shopnestImg from "../assets/projects/shopnest.png";
-import weatherscopeImg from "../assets/projects/weatherscope.png";
 
 export const personalInfo = {
   name: "Abhishek",
