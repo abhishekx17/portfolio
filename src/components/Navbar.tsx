@@ -53,18 +53,16 @@ export function Navbar() {
         <div
           className={`w-full max-w-5xl rounded-full transition-all duration-300 ${
             scrolled
-              ? "bg-surface/90 backdrop-blur-xl border border-border shadow-lg py-2.5 px-6"
+              ? "bg-surface/90 backdrop-blur-xl border border-border py-2.5 px-6"
               : "bg-surface/50 backdrop-blur-md border border-border/60 py-3 px-6"
           }`}
         >
-          {/* Top scroll progress indicator */}
           <div
             className="absolute top-0 left-8 right-8 h-0.5 bg-accent/40 origin-left transition-transform duration-150 rounded-full"
-            style={{ width: `${progress * 100}%` }}
+            style={{ transform: `scaleX(${progress})` }}
           />
 
           <nav className="flex items-center justify-between">
-            {/* Logo */}
             <a
               href="#"
               className="group flex items-center gap-2.5 hover:opacity-90 transition-opacity"
@@ -76,7 +74,6 @@ export function Navbar() {
               </span>
             </a>
 
-            {/* Desktop Nav Items - Clean Text Only (No Icons) */}
             <ul className="hidden md:flex items-center gap-1 bg-surface-elevated/60 border border-border/60 rounded-full px-3 py-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href;
@@ -87,7 +84,7 @@ export function Navbar() {
                       href={link.href}
                       className={`relative flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide transition-all duration-300 ${
                         isActive
-                          ? "text-ink bg-surface border border-border shadow-xs font-bold"
+                          ? "text-ink bg-surface border border-border font-bold"
                           : "text-ink-muted hover:text-ink hover:bg-surface/60"
                       }`}
                     >
@@ -98,13 +95,11 @@ export function Navbar() {
               })}
             </ul>
 
-            {/* Right Action Controls */}
             <div className="flex items-center gap-2.5">
-              {/* Theme Toggle Switcher */}
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={toggleTheme}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink hover:border-accent/50 hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink hover:border-accent/50 hover:bg-surface-elevated transition-all duration-300"
                 aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               >
@@ -133,18 +128,16 @@ export function Navbar() {
                 </AnimatePresence>
               </motion.button>
 
-              {/* GitHub Button */}
               <a
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink hover:border-border-strong hover:bg-surface-elevated transition-all duration-300"
               >
                 GitHub
                 <ArrowUpRight className="h-3 w-3" />
               </a>
 
-              {/* Mobile Hamburger */}
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
@@ -158,7 +151,6 @@ export function Navbar() {
         </div>
       </motion.header>
 
-      {/* Mobile Menu Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div

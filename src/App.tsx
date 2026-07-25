@@ -10,7 +10,6 @@ import { Footer } from "./components/Footer";
 function App() {
   return (
     <>
-      <div className="grain" aria-hidden="true" />
       <Navbar />
       <main>
         <Hero />
