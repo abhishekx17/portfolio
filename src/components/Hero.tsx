@@ -35,53 +35,45 @@ export function Hero() {
   const [imageError, setImageError] = useState(false);
 
   return (
-    <section className="relative min-h-[90vh] flex flex-col justify-center overflow-hidden pt-28 pb-16">
-      {/* Subtle Grid & Glow Background */}
-      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
-      <div className="absolute top-1/3 right-12 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="relative mx-auto w-full max-w-6xl px-4 sm:px-6 md:px-8">
+    <section className="relative min-h-[95vh] flex flex-col justify-center pt-28 pb-20 overflow-hidden">
+      <div className="mx-auto w-full max-w-6xl px-6 md:px-8 relative z-10 flex-1 flex flex-col justify-center">
         <motion.div
           variants={container}
           initial="hidden"
           animate="visible"
-          className="grid lg:grid-cols-12 gap-10 lg:gap-8 items-center"
+          className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center"
         >
-          {/* Left Column: Headline & Action Buttons */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-7">
-            {/* Availability Badge */}
+          <div className="lg:col-span-7 space-y-8 lg:pr-8">
             <motion.div variants={item} className="flex flex-wrap items-center gap-3">
-              <span className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink shadow-xs">
+              <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink shadow-xs">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
                 </span>
-                {personalInfo.availability}
-              </span>
-              <span className="text-ink-faint hidden sm:inline">•</span>
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted">
-                <MapPin className="h-3.5 w-3.5 text-ink-faint" />
-                {personalInfo.location}
-              </span>
+                <span>Available for Software Engineering Roles</span>
+              </div>
+              <div className="inline-flex items-center gap-1.5 text-xs font-medium text-ink-muted bg-surface/50 px-3 py-1.5 rounded-full border border-border/50">
+                <MapPin className="h-3 w-3" />
+                <span>{personalInfo.location}</span>
+              </div>
             </motion.div>
 
-            {/* Display Headline */}
-            <motion.div variants={item}>
-              <h1 className="font-display text-[clamp(2.4rem,5.2vw,4.5rem)] font-extrabold leading-[1.04] tracking-tight text-ink">
-                Architecting <br />
-                <span className="text-gradient">Full-Stack Web</span> Experiences.
-              </h1>
-            </motion.div>
+            <motion.h1
+              variants={item}
+              className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-[5rem] font-extrabold tracking-tight leading-[1.05] text-ink"
+            >
+              Architecting <br className="hidden sm:block" />
+              Full-Stack Web <br className="hidden sm:block" />
+              Experiences.
+            </motion.h1>
 
-            {/* Subtitle */}
             <motion.p
               variants={item}
-              className="max-w-xl text-base sm:text-lg text-ink-muted leading-relaxed font-normal"
+              className="max-w-xl text-base md:text-lg text-ink-muted leading-relaxed font-normal"
             >
               Hi, I'm <strong className="text-ink font-semibold">{personalInfo.fullName}</strong> — a MERN Stack Developer building high-performance web applications, clean API architectures, and modern user interfaces.
             </motion.p>
 
-            {/* Action Buttons */}
             <motion.div
               variants={item}
               className="flex flex-wrap items-center gap-3 pt-1"
@@ -112,7 +104,6 @@ export function Hero() {
               </a>
             </motion.div>
 
-            {/* Micro Highlights */}
             <motion.div
               variants={item}
               className="pt-4 flex flex-wrap items-center gap-6 border-t border-border/50 text-xs text-ink-muted font-medium"
@@ -132,15 +123,13 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right Column: Coder UI Window with Resume Preview Image */}
           <motion.div variants={item} className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm sm:max-w-md rounded-2xl border border-border bg-surface-elevated shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl">
-              {/* Window Header */}
+            <div className="w-full max-w-sm sm:max-w-md rounded-2xl border border-border bg-surface-elevated shadow-xl overflow-hidden transition-all duration-300">
               <div className="flex items-center justify-between border-b border-border bg-surface/80 px-4 py-3 select-none">
                 <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-red-500/80 inline-block" />
-                  <span className="h-3 w-3 rounded-full bg-amber-500/80 inline-block" />
-                  <span className="h-3 w-3 rounded-full bg-emerald-500/80 inline-block" />
+                  <span className="h-3 w-3 rounded-full bg-border-strong inline-block" />
+                  <span className="h-3 w-3 rounded-full bg-border-strong inline-block" />
+                  <span className="h-3 w-3 rounded-full bg-border-strong inline-block" />
                 </div>
 
                 <div className="flex items-center gap-1.5 rounded-lg border border-border/60 bg-surface-elevated px-3 py-1 text-xs font-mono font-medium text-ink-muted">
@@ -154,7 +143,6 @@ export function Hero() {
                 </span>
               </div>
 
-              {/* Window Content: Resume Image Preview Container */}
               <div className="p-4 bg-surface/50">
                 <div className="relative group/preview overflow-hidden rounded-xl border border-border bg-surface shadow-xs transition-all">
                   {!imageError ? (
@@ -165,7 +153,6 @@ export function Hero() {
                       className="w-full max-h-[380px] object-cover object-top transition-transform duration-500 group-hover/preview:scale-[1.02]"
                     />
                   ) : (
-                    /* Styled Fallback Resume Card if image file hasn't been placed in public/ folder yet */
                     <div className="p-5 space-y-4 bg-surface text-ink font-sans text-xs">
                       <div className="flex items-center justify-between border-b border-border/80 pb-3">
                         <div>
@@ -210,7 +197,6 @@ export function Hero() {
                     </div>
                   )}
 
-                  {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-ink/40 backdrop-blur-[2px] opacity-0 group-hover/preview:opacity-100 transition-opacity flex items-center justify-center gap-3 p-4">
                     <a
                       href={personalInfo.resumeUrl}
@@ -225,7 +211,6 @@ export function Hero() {
                 </div>
               </div>
 
-              {/* Window Footer / Action Buttons */}
               <div className="border-t border-border bg-surface px-4 py-3.5">
                 <div className="grid grid-cols-2 gap-2.5">
                   <a
