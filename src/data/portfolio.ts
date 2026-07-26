@@ -11,7 +11,7 @@ export const personalInfo = {
   location: "India",
   github: "https://github.com/abhishekx17",
   linkedin: "https://www.linkedin.com/in/abhishek-kumar-805194380/",
-  twitter: "https://x.com/abhishekx17",
+  instagram: "https://www.instagram.com/abhi_.notfound/",
   resumeUrl: "/resume.pdf",
   availability: "Available for Software Engineering Roles",
 
@@ -20,6 +20,22 @@ export const personalInfo = {
   timeline: "2022 – 2026",
   college: "Sri Sukhmani Institute of Engineering and Technology (PTU)",
   university: "IK Gujral Punjab Technical University (PTU)",
+};
+
+export const linkedinDetails = {
+  profilePic: "/linkedin-pfp.jpeg",
+  name: "Abhishek Kumar",
+  headline: "Full Stack Developer | React, Node.js, Express & MongoDB | Building Scalable Web Applications",
+  location: "Dera Bassi, Punjab, India",
+  college: "I. K. Gujral Punjab Technical University (IKGPTU)",
+  company: "Excellence Technology",
+  connections: "322 connections",
+  profileUrl: "https://www.linkedin.com/in/abhishek-kumar-805194380/",
+  openToWork: "Open to work • Sahibzada Ajit Singh Nagar & Mohali | On-site / Hybrid",
+  bannerCode: "< Code. Build. Ship. Repeat />",
+  bannerHeading: "Building Digital Experiences that make an Impact.",
+  bannerSubtext: "Clean Code • Modern UI • Real Solutions",
+  skills: ["React.js", "Node.js", "Express.js", "MongoDB", "TypeScript", "REST APIs", "Tailwind CSS", "GitHub"],
 };
 
 export const resumeDetails = {

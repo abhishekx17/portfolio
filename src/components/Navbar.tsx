@@ -107,7 +107,7 @@ export function Navbar() {
 
             {/* Right: Theme Switcher & Social Links */}
             <div className="flex items-center gap-2">
-              <div className="flex items-center gap-1 rounded-full bg-surface-elevated/80 border border-border/70 p-1 shadow-xs">
+              <div className="hidden md:flex items-center gap-1 rounded-full bg-surface-elevated/80 border border-border/70 p-1 shadow-xs">
                 <a
                   href={personalInfo.github}
                   target="_blank"
@@ -127,13 +127,13 @@ export function Navbar() {
                   <SocialIcons.linkedin className="h-4 w-4" />
                 </a>
                 <a
-                  href={personalInfo.twitter}
+                  href={personalInfo.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label="Twitter / X"
+                  aria-label="Instagram"
                   className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
                 >
-                  <SocialIcons.twitter className="h-4 w-4" />
+                  <SocialIcons.instagram className="h-4 w-4" />
                 </a>
               </div>
 
@@ -240,12 +240,12 @@ export function Navbar() {
                 <span>Available for Engineering Roles</span>
               </div>
 
-              <div className="flex gap-3">
+              <div className="flex gap-2">
                 <a
                   href={personalInfo.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-center rounded-full border border-border bg-surface text-ink py-3 text-xs font-bold hover:border-accent transition-colors"
+                  className="flex-1 text-center rounded-full border border-border bg-surface text-ink py-2.5 text-xs font-bold hover:border-accent transition-colors"
                 >
                   GitHub
                 </a>
@@ -253,9 +253,17 @@ export function Navbar() {
                   href={personalInfo.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 text-center rounded-full bg-accent text-primary py-3 text-xs font-bold hover:opacity-90 transition-opacity"
+                  className="flex-1 text-center rounded-full bg-accent text-primary py-2.5 text-xs font-bold hover:opacity-90 transition-opacity"
                 >
                   LinkedIn
+                </a>
+                <a
+                  href={personalInfo.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center rounded-full border border-border bg-surface text-ink py-2.5 text-xs font-bold hover:border-accent transition-colors"
+                >
+                  Instagram
                 </a>
               </div>
             </div>

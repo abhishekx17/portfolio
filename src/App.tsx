@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Navbar } from "./components/Navbar";
 import { Hero } from "./components/Hero";
 import { About } from "./components/About";
@@ -7,8 +8,18 @@ import { Projects } from "./components/Projects";
 import { GithubActivity } from "./components/GithubActivity";
 import { Contact } from "./components/Contact";
 import { Footer } from "./components/Footer";
+import { Toast } from "./components/Toast";
 
 function App() {
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const handleShowToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3000);
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-primary text-ink font-sans selection:bg-accent selection:text-white">
       <Navbar />
@@ -25,17 +36,19 @@ function App() {
         />
 
         <main className="relative flex-1 flex flex-col overflow-x-hidden">
-          <Hero />
-          <About />
+          <Hero onShowToast={handleShowToast} />
+          <About onShowToast={handleShowToast} />
           <OpenSourceHighlights />
           <TechStack />
           <Projects />
           <GithubActivity />
-          <Contact />
+          <Contact onShowToast={handleShowToast} />
         </main>
 
         <Footer />
       </div>
+
+      <Toast message={toastMessage} onClose={() => setToastMessage(null)} />
     </div>
   );
 }

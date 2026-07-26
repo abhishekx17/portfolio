@@ -42,26 +42,47 @@ export function Hero({ onShowToast }: HeroProps) {
         >
           {/* Left Column: Headline, Bio & CTAs */}
           <div className="lg:col-span-7 space-y-8 lg:pr-6">
-            {/* Top Badges */}
-            <motion.div variants={fadeInUp} className="flex flex-wrap items-center gap-3">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-500 shadow-xs">
-                <span className="relative flex h-2 w-2">
+            {/* Profile Avatar & Status Badges Header */}
+            <motion.div variants={fadeInUp} className="flex items-center gap-3 sm:gap-4">
+              <div className="relative group shrink-0">
+                <div className="h-14 w-14 sm:h-20 sm:w-20 rounded-full p-0.5 bg-gradient-to-tr from-accent via-emerald-500 to-indigo-500 shadow-lg overflow-hidden group-hover:scale-105 transition-transform duration-300">
+                  <img
+                    src="/linkedin-pfp.jpeg"
+                    alt="Abhishek Kumar Profile Photo"
+                    className="h-full w-full object-cover rounded-full"
+                  />
+                </div>
+                {/* Active Pulse Ring */}
+                <span className="absolute bottom-0 right-0 flex h-3.5 w-3.5 sm:h-4.5 sm:w-4.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  <span className="relative inline-flex rounded-full h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 bg-emerald-500 border-2 border-surface" />
                 </span>
-                <span>{personalInfo.availability}</span>
               </div>
 
-              <div className="inline-flex items-center gap-1.5 text-xs font-mono font-medium text-ink-muted bg-surface px-3.5 py-1.5 rounded-full border border-border">
-                <MapPin className="h-3.5 w-3.5 text-ink-faint" />
-                <span>{personalInfo.location}</span>
+              <div className="space-y-1 sm:space-y-1.5 min-w-0">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 sm:px-3.5 py-1 text-[11px] sm:text-xs font-semibold text-emerald-500 shadow-xs">
+                  <span className="relative flex h-2 w-2 shrink-0">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                  </span>
+                  <span className="truncate">{personalInfo.availability}</span>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-mono font-medium text-ink-muted">
+                  <span className="inline-flex items-center gap-1">
+                    <MapPin className="h-3 w-3 text-accent" />
+                    <span>{personalInfo.location}</span>
+                  </span>
+                  <span className="text-ink-faint">•</span>
+                  <span className="text-ink font-semibold">Full-Stack Engineer</span>
+                </div>
               </div>
             </motion.div>
 
             {/* Main Headline */}
             <motion.h1
               variants={fadeInUp}
-              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight leading-[1.06] text-ink"
+              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight leading-[1.08] text-ink"
             >
               Architecting <br className="hidden sm:block" />
               Full-Stack Web <br className="hidden sm:block" />
@@ -71,7 +92,7 @@ export function Hero({ onShowToast }: HeroProps) {
             {/* Bio Paragraph */}
             <motion.p
               variants={fadeInUp}
-              className="max-w-xl text-base md:text-lg text-ink-muted leading-relaxed font-normal"
+              className="max-w-xl text-sm sm:text-base md:text-lg text-ink-muted leading-relaxed font-normal"
             >
               Hi, I'm <strong className="text-ink font-semibold">{personalInfo.fullName}</strong> — a Full-Stack Engineer & MERN Specialist building performant web applications, clean REST API architectures, and modern user interfaces.
             </motion.p>
@@ -79,32 +100,34 @@ export function Hero({ onShowToast }: HeroProps) {
             {/* CTA Buttons Group */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-wrap items-center gap-3.5 pt-1"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1"
             >
               <a
                 href="#projects"
-                className="group relative inline-flex items-center gap-2.5 rounded-full bg-ink px-7 py-3.5 text-xs font-bold text-primary hover:opacity-95 transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95"
+                className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-ink px-7 py-3.5 text-xs font-bold text-primary hover:opacity-95 transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95 text-center"
               >
                 <span>View Selected Work</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
 
-              <a
-                href={personalInfo.resumeUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3.5 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
-              >
-                <FileText className="h-4 w-4 text-ink-muted" />
-                <span>View Resume</span>
-              </a>
+              <div className="flex items-center gap-2">
+                <a
+                  href={personalInfo.resumeUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                >
+                  <FileText className="h-4 w-4 text-ink-muted" />
+                  <span>Resume</span>
+                </a>
 
-              <a
-                href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-elevated px-6 py-3.5 text-xs font-bold text-ink hover:border-border-strong transition-all duration-300 shadow-xs"
-              >
-                <span>Contact</span>
-              </a>
+                <a
+                  href="#contact"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface-elevated px-5 py-3 text-xs font-bold text-ink hover:border-border-strong transition-all duration-300 shadow-xs"
+                >
+                  <span>Contact</span>
+                </a>
+              </div>
             </motion.div>
 
             {/* Bottom Quick Feature Highlights */}
@@ -201,13 +224,20 @@ export function Hero({ onShowToast }: HeroProps) {
                       ) : (
                         <div className="p-6 space-y-4 bg-surface text-ink font-sans text-xs">
                           <div className="flex items-center justify-between border-b border-border pb-3">
-                            <div>
-                              <h3 className="font-display font-extrabold text-lg text-ink tracking-tight">
-                                {personalInfo.fullName}
-                              </h3>
-                              <p className="text-ink-muted font-semibold text-xs mt-0.5">
-                                {personalInfo.title}
-                              </p>
+                            <div className="flex items-center gap-3">
+                              <img
+                                src="/linkedin-pfp.jpeg"
+                                alt="Abhishek Kumar PFP"
+                                className="h-10 w-10 rounded-full object-cover border border-border shadow-xs shrink-0"
+                              />
+                              <div>
+                                <h3 className="font-display font-extrabold text-lg text-ink tracking-tight">
+                                  {personalInfo.fullName}
+                                </h3>
+                                <p className="text-ink-muted font-semibold text-xs mt-0.5">
+                                  {personalInfo.title}
+                                </p>
+                              </div>
                             </div>
                             <span className="rounded-full bg-surface-elevated border border-border px-3 py-1 text-[10px] font-mono font-bold">
                               MERN & TS

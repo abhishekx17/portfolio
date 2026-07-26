@@ -1,20 +1,16 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpRight, Copy, Check, Calendar, Sparkles, Terminal } from "lucide-react";
+import { ArrowUpRight, Sparkles, Terminal } from "lucide-react";
 import { aboutParagraphs, developerTools, personalInfo } from "../data/portfolio";
 import { fadeInUp, staggerContainer, softSpring } from "../lib/motion";
 import { SocialIcons } from "./icons/SocialIcons";
 import { ToolLogos } from "./icons/ToolLogos";
+import { LinkedInCard } from "./LinkedInCard";
 
-export function About() {
-  const [copied, setCopied] = useState(false);
+interface AboutProps {
+  onShowToast?: (message: string) => void;
+}
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(personalInfo.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
+export function About({ onShowToast }: AboutProps) {
   return (
     <section id="about" className="py-20 border-t border-border/60 relative">
       <div className="mx-auto max-w-5xl px-4 md:px-6">
@@ -97,13 +93,22 @@ export function About() {
                     >
                       <SocialIcons.linkedin className="h-4 w-4" />
                     </a>
+                    <a
+                      href={personalInfo.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-full border border-border bg-surface text-ink hover:text-white hover:bg-surface-elevated transition-colors"
+                      title="Instagram Profile"
+                    >
+                      <SocialIcons.instagram className="h-4 w-4" />
+                    </a>
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <h3 className="font-display text-2xl font-black text-ink">GitHub & Code Repos</h3>
+                  <h3 className="font-display text-2xl font-black text-ink">GitHub & Socials</h3>
                   <p className="text-xs text-ink-muted leading-relaxed">
-                    Clean code, modular folder structures, and full-stack MERN projects hosted on GitHub.
+                    Clean code, modular repositories, and full-stack MERN projects hosted on GitHub. Connect on Instagram & LinkedIn.
                   </p>
                 </div>
               </div>
@@ -121,7 +126,7 @@ export function About() {
               </div>
             </div>
 
-            {/* BENTO TILE 3: Developer Tools Card (Requested: VS Code, Antigravity, Postman, Cursor AI, Codex, Notion, GitHub, Internet) */}
+            {/* BENTO TILE 3: Developer Tools Card */}
             <div className="group relative md:col-span-6 flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs">
               <div className="space-y-3 z-10">
                 <h3 className="font-display text-xl font-bold text-ink flex items-center gap-2">
@@ -163,49 +168,8 @@ export function About() {
               </div>
             </div>
 
-            {/* BENTO TILE 4: Get in Touch */}
-            <div className="group relative md:col-span-6 flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs">
-              <div className="space-y-3 z-10">
-                <h3 className="font-display text-xl font-bold text-ink flex items-center gap-2">
-                  <Calendar className="h-5 w-5 text-ink-muted" />
-                  <span>Get in Touch</span>
-                </h3>
-                <p className="text-xs text-ink-muted">
-                  Open for full-time Software Engineer opportunities and technical discussions.
-                </p>
-              </div>
-
-              {/* Direct Email Box */}
-              <div className="my-6 p-4 rounded-2xl border border-border bg-surface-elevated flex items-center justify-between gap-3">
-                <div className="min-w-0">
-                  <span className="block text-[10px] font-mono font-bold text-ink-faint uppercase">Direct Email</span>
-                  <span className="block text-xs font-mono font-bold text-ink truncate">{personalInfo.email}</span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={handleCopyEmail}
-                  className="inline-flex items-center gap-1.5 rounded-xl bg-ink px-3.5 py-2 text-xs font-bold text-primary hover:opacity-90 transition-opacity shrink-0 font-mono"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="h-3.5 w-3.5" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="h-3.5 w-3.5" />
-                      <span>Copy Mail</span>
-                    </>
-                  )}
-                </button>
-              </div>
-
-              <div className="pt-2 flex items-center justify-between text-xs text-ink-faint font-mono">
-                <span>Location: {personalInfo.location}</span>
-                <a href={`mailto:${personalInfo.email}`} className="text-ink font-bold hover:underline">Send Email →</a>
-              </div>
-            </div>
+            {/* BENTO TILE 4: LinkedIn Profile Card (Portfolio Theme Bento Card) */}
+            <LinkedInCard onShowToast={onShowToast} className="md:col-span-6" />
           </motion.div>
         </motion.div>
       </div>

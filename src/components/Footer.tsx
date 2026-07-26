@@ -1,5 +1,5 @@
 import { ArrowUp, FileText, MapPin, Sparkles } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
+import { GitHubIcon, LinkedInIcon, InstagramIcon } from "./icons/SocialIcons";
 import { navLinks, personalInfo } from "../data/portfolio";
 import { Logo } from "./Logo";
 
@@ -71,10 +71,11 @@ export function Footer() {
           <div className="md:col-span-3 space-y-4 flex flex-col justify-between">
             <div className="space-y-3">
               <p className="text-xs font-bold text-ink uppercase tracking-wider font-mono">Connect</p>
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2">
                 {[
                   { href: personalInfo.github, icon: GitHubIcon, label: "GitHub" },
                   { href: personalInfo.linkedin, icon: LinkedInIcon, label: "LinkedIn" },
+                  { href: personalInfo.instagram, icon: InstagramIcon, label: "Instagram" },
                 ].map(({ href, icon: Icon, label }) => (
                   <a
                     key={label}

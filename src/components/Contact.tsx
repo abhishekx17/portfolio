@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight, Copy, Mail, Check, Send, MapPin } from "lucide-react";
-import { GitHubIcon, LinkedInIcon } from "./icons/SocialIcons";
+import { GitHubIcon, LinkedInIcon, InstagramIcon } from "./icons/SocialIcons";
 import { personalInfo } from "../data/portfolio";
 import { SectionHeading } from "./SectionHeading";
 import { smoothEase } from "../lib/motion";
@@ -107,6 +107,11 @@ export function Contact({ onShowToast }: ContactProps) {
                 label: "LinkedIn",
                 href: personalInfo.linkedin,
                 icon: LinkedInIcon,
+              },
+              {
+                label: "Instagram",
+                href: personalInfo.instagram,
+                icon: InstagramIcon,
               },
               {
                 label: personalInfo.location,
