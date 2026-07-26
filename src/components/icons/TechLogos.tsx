@@ -128,3 +128,16 @@ export function RestApiLogo(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export const TechLogos = {
+  react: ReactLogo,
+  node: NodeLogo,
+  mongo: MongoLogo,
+  express: ExpressLogo,
+  typescript: TypeScriptLogo,
+  tailwind: TailwindLogo,
+  git: GitLogo,
+  next: NextLogo,
+  redux: ReduxLogo,
+  rest: RestApiLogo,
+};

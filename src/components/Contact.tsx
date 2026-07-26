@@ -6,72 +6,75 @@ import { personalInfo } from "../data/portfolio";
 import { SectionHeading } from "./SectionHeading";
 import { smoothEase } from "../lib/motion";
 
-export function Contact() {
+interface ContactProps {
+  onShowToast?: (message: string) => void;
+}
+
+export function Contact({ onShowToast }: ContactProps) {
   const [copied, setCopied] = useState(false);
 
   const copyEmail = async () => {
     await navigator.clipboard.writeText(personalInfo.email);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    onShowToast?.("Email address copied to clipboard!");
+    setTimeout(() => setCopied(false), 2500);
   };
 
   return (
-    <section id="contact" className="py-20 md:py-28 bg-surface/30 border-t border-border relative overflow-hidden">
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[250px] bg-accent/5 rounded-full blur-3xl pointer-events-none" />
-
-      <div className="mx-auto max-w-6xl px-6 md:px-8 relative">
+    <section id="contact" className="py-20 md:py-28 relative overflow-hidden bg-surface/30 border-t border-border">
+      <div className="mx-auto max-w-6xl px-6 md:px-8 relative z-10">
         <SectionHeading
           index="05"
-          title="Get In Touch"
-          subtitle="Have a project idea, job opportunity, or just want to connect? Feel free to reach out."
+          title="Contact"
+          subtitle="Have a project idea, job opportunity, or just want to connect? Feel free to reach out anytime."
         />
 
-        {/* Refined Centered Contact Card */}
+        {/* Centered Glass Contact Card */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: smoothEase }}
-          className="mx-auto max-w-3xl rounded-3xl border border-border/80 bg-surface-elevated/70 backdrop-blur-xl p-8 sm:p-10 shadow-xl text-center space-y-8"
+          className="mx-auto max-w-3xl rounded-3xl border border-border bg-surface p-8 sm:p-12 glass-card shadow-lg text-center space-y-8 relative overflow-hidden"
         >
           {/* Header & Availability Badge */}
           <div className="space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink shadow-xs">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-semibold text-emerald-500 shadow-xs">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
               </span>
-              <span>Open to Full-Stack Roles & Projects</span>
+              <span>{personalInfo.availability}</span>
             </div>
 
-            <h3 className="font-display text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-ink">
-              Let's Build Something Great Together
+            <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-ink">
+              Let's Build Something <br className="hidden sm:block" />
+              Great Together
             </h3>
 
             <p className="text-sm sm:text-base text-ink-muted leading-relaxed max-w-xl mx-auto font-normal">
-              Whether you're looking for a MERN stack developer, building a new web application, or just want to talk tech — my inbox is open.
+              Whether you're looking for a MERN stack developer, building a new web application, or discussing software engineering roles — my inbox is open.
             </p>
           </div>
 
           {/* Clean Interactive Email Box */}
-          <div className="max-w-lg mx-auto rounded-2xl border border-border bg-surface p-2 sm:p-2.5 shadow-xs transition-all hover:border-accent/40">
+          <div className="max-w-lg mx-auto rounded-2xl border border-border bg-surface-elevated p-2.5 shadow-xs transition-all hover:border-accent/40">
             <div className="flex flex-col sm:flex-row items-center gap-2">
               <div className="flex-1 flex items-center gap-3 px-3 py-2 text-xs sm:text-sm font-medium text-ink w-full truncate">
                 <Mail className="h-4 w-4 text-accent shrink-0" />
-                <span className="truncate font-mono">{personalInfo.email}</span>
+                <span className="truncate font-mono font-semibold">{personalInfo.email}</span>
               </div>
 
               <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
                 <button
                   type="button"
                   onClick={copyEmail}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-xs font-bold text-ink hover:bg-surface transition-all shadow-xs"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface px-4 py-2.5 text-xs font-bold text-ink hover:bg-surface-elevated transition-all shadow-xs"
                 >
                   {copied ? (
                     <>
                       <Check className="h-3.5 w-3.5 text-emerald-500" />
-                      <span>Copied</span>
+                      <span className="text-emerald-500">Copied!</span>
                     </>
                   ) : (
                     <>
@@ -83,17 +86,17 @@ export function Contact() {
 
                 <a
                   href={`mailto:${personalInfo.email}`}
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-accent px-4 py-2.5 text-xs font-bold text-primary hover:opacity-90 transition-all shadow-xs"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-xl bg-ink px-5 py-2.5 text-xs font-bold text-primary hover:opacity-90 transition-all shadow-md"
                 >
                   <Send className="h-3.5 w-3.5" />
-                  <span>Send</span>
+                  <span>Send Email</span>
                 </a>
               </div>
             </div>
           </div>
 
           {/* Social Links Row */}
-          <div className="pt-4 border-t border-border/60 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+          <div className="pt-4 border-t border-border/80 flex flex-wrap items-center justify-center gap-3 sm:gap-4">
             {[
               {
                 label: "GitHub",
@@ -117,20 +120,20 @@ export function Contact() {
                     href={item.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2 text-xs font-semibold text-ink-muted hover:text-ink hover:border-accent/40 hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                    className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-5 py-2 text-xs font-bold text-ink-muted hover:text-ink hover:border-accent/40 hover:bg-surface-elevated transition-all duration-300 shadow-xs group"
                   >
-                    <item.icon className="h-3.5 w-3.5" />
+                    <item.icon className="h-4 w-4 text-accent" />
                     <span>{item.label}</span>
-                    <ArrowUpRight className="h-3 w-3 text-ink-faint" />
+                    <ArrowUpRight className="h-3.5 w-3.5 text-ink-faint transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                   </a>
                 );
               }
               return (
                 <div
                   key={item.label}
-                  className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-surface/50 px-4 py-2 text-xs font-medium text-ink-faint cursor-default"
+                  className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-surface/50 px-5 py-2 text-xs font-semibold text-ink-faint cursor-default"
                 >
-                  <item.icon className="h-3.5 w-3.5" />
+                  <item.icon className="h-4 w-4 text-emerald-500" />
                   <span>{item.label}</span>
                 </div>
               );

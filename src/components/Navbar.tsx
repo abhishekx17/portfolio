@@ -1,29 +1,29 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Menu, MoonStar, Sparkles, X } from "lucide-react";
+import { Menu, MoonStar, Sparkles, X } from "lucide-react";
 import { navLinks, personalInfo } from "../data/portfolio";
 import { useScrollProgress } from "../hooks/useScrollProgress";
 import { useTheme } from "../hooks/useTheme";
-import { smoothEase } from "../lib/motion";
-import { Logo } from "./Logo";
+import { smoothEase, springTransition } from "../lib/motion";
+import { SocialIcons } from "./icons/SocialIcons";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
+  const [activeSection, setActiveSection] = useState("#home");
   const progress = useScrollProgress();
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 30);
+      setScrolled(window.scrollY > 25);
 
-      const sections = ["about", "stack", "projects", "activity", "contact"];
+      const sections = ["home", "about", "stack", "projects", "highlights", "contact"];
       const current = sections.find((sec) => {
         const el = document.getElementById(sec);
         if (el) {
           const rect = el.getBoundingClientRect();
-          return rect.top <= 200 && rect.bottom >= 200;
+          return rect.top <= 240 && rect.bottom >= 200;
         }
         return false;
       });
@@ -45,61 +45,103 @@ export function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -20, opacity: 0 }}
+        initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: smoothEase }}
-        className="fixed top-0 left-0 right-0 z-40 flex justify-center px-4 pt-4 pb-2"
+        className="fixed top-0 left-0 right-0 z-40 flex justify-center px-3 pt-3.5 pb-2"
       >
         <div
-          className={`w-full max-w-5xl rounded-full transition-all duration-300 ${
+          className={`relative w-full max-w-6xl rounded-full transition-all duration-300 ${
             scrolled
-              ? "bg-surface/90 backdrop-blur-xl border border-border py-2.5 px-6"
-              : "bg-surface/50 backdrop-blur-md border border-border/60 py-3 px-6"
+              ? "bg-surface/90 backdrop-blur-xl border border-border shadow-lg py-2 px-5"
+              : "bg-surface/60 backdrop-blur-md border border-border/60 py-2.5 px-5"
           }`}
         >
+          {/* Scroll Progress Line */}
           <div
-            className="absolute top-0 left-8 right-8 h-0.5 bg-accent/40 origin-left transition-transform duration-150 rounded-full"
+            className="absolute top-0 left-8 right-8 h-[2px] bg-accent/50 origin-left transition-transform duration-150 rounded-full"
             style={{ transform: `scaleX(${progress})` }}
           />
 
-          <nav className="flex items-center justify-between">
+          <nav className="flex items-center justify-between gap-2">
+            {/* Left: Avatar Logo + Title */}
             <a
-              href="#"
+              href="#home"
               className="group flex items-center gap-2.5 hover:opacity-90 transition-opacity"
               aria-label="Home"
             >
-              <Logo className="h-8 w-8 text-accent" />
-              <span className="font-display font-bold text-base text-ink tracking-tight">
-                {personalInfo.name}<span className="text-accent">.</span>
+              <div className="relative flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface-elevated overflow-hidden shadow-xs">
+                <span className="font-display font-black text-xs text-accent">AK</span>
+              </div>
+              <span className="hidden sm:inline-block font-display font-bold text-sm text-ink tracking-tight">
+                {personalInfo.fullName}
               </span>
             </a>
 
-            <ul className="hidden md:flex items-center gap-1 bg-surface-elevated/60 border border-border/60 rounded-full px-3 py-1">
+            {/* Center: Floating Pill Navigation Menu */}
+            <ul className="hidden md:flex items-center gap-1 bg-surface-elevated/90 border border-border/80 rounded-full px-3 py-1.5 shadow-xs">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href;
 
                 return (
-                  <li key={link.href}>
+                  <li key={link.href} className="relative">
                     <a
                       href={link.href}
-                      className={`relative flex items-center rounded-full px-4 py-1.5 text-xs font-semibold tracking-wide transition-all duration-300 ${
-                        isActive
-                          ? "text-ink bg-surface border border-border font-bold"
-                          : "text-ink-muted hover:text-ink hover:bg-surface/60"
+                      className={`relative z-10 block rounded-full px-3.5 py-1 text-xs font-semibold tracking-wide transition-colors duration-300 ${
+                        isActive ? "text-ink font-extrabold" : "text-ink-muted hover:text-ink"
                       }`}
                     >
                       {link.label}
                     </a>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNavPill"
+                        transition={springTransition}
+                        className="absolute inset-0 rounded-full bg-surface border border-border/80 shadow-xs"
+                      />
+                    )}
                   </li>
                 );
               })}
             </ul>
 
-            <div className="flex items-center gap-2.5">
+            {/* Right: Theme Switcher & Social Links */}
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 rounded-full bg-surface-elevated/80 border border-border/70 p-1 shadow-xs">
+                <a
+                  href={personalInfo.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub"
+                  className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
+                >
+                  <SocialIcons.github className="h-4 w-4" />
+                </a>
+                <a
+                  href={personalInfo.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                  className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
+                >
+                  <SocialIcons.linkedin className="h-4 w-4" />
+                </a>
+                <a
+                  href={personalInfo.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Twitter / X"
+                  className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
+                >
+                  <SocialIcons.twitter className="h-4 w-4" />
+                </a>
+              </div>
+
+              {/* Theme Toggle Button */}
               <motion.button
                 whileTap={{ scale: 0.92 }}
                 onClick={toggleTheme}
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface text-ink hover:border-accent/50 hover:bg-surface-elevated transition-all duration-300"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface text-ink hover:border-accent/40 hover:bg-surface-elevated transition-all duration-300 shadow-xs"
                 aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
                 title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
               >
@@ -112,7 +154,7 @@ export function Navbar() {
                       exit={{ scale: 0.5, rotate: 45, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <Sparkles className="h-4 w-4 text-accent" />
+                      <Sparkles className="h-3.5 w-3.5 text-accent" />
                     </motion.div>
                   ) : (
                     <motion.div
@@ -122,26 +164,16 @@ export function Navbar() {
                       exit={{ scale: 0.5, rotate: -45, opacity: 0 }}
                       transition={{ duration: 0.2 }}
                     >
-                      <MoonStar className="h-4 w-4 text-ink-muted hover:text-ink" />
+                      <MoonStar className="h-3.5 w-3.5 text-ink-muted hover:text-ink" />
                     </motion.div>
                   )}
                 </AnimatePresence>
               </motion.button>
 
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-1.5 text-xs font-semibold text-ink hover:border-border-strong hover:bg-surface-elevated transition-all duration-300"
-              >
-                GitHub
-                <ArrowUpRight className="h-3 w-3" />
-              </a>
-
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="md:hidden p-1.5 text-ink hover:text-accent transition-colors"
+                className="md:hidden p-2 text-ink hover:text-accent transition-colors"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />
@@ -151,17 +183,25 @@ export function Navbar() {
         </div>
       </motion.header>
 
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, y: "-10%" }}
+            initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: "-10%" }}
-            transition={{ duration: 0.3, ease: smoothEase }}
+            exit={{ opacity: 0, y: "-100%" }}
+            transition={{ duration: 0.35, ease: smoothEase }}
             className="fixed inset-0 z-50 bg-primary/98 backdrop-blur-2xl md:hidden flex flex-col justify-between p-6"
           >
             <div className="flex items-center justify-between">
-              <Logo className="h-9 w-9 text-accent" />
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface-elevated font-display font-black text-sm text-accent">
+                  AK
+                </div>
+                <span className="font-display font-bold text-lg text-ink">
+                  {personalInfo.fullName}
+                </span>
+              </div>
               <button
                 type="button"
                 onClick={() => setMobileOpen(false)}
@@ -173,12 +213,17 @@ export function Navbar() {
             </div>
 
             <motion.ul className="flex flex-col gap-5 my-auto">
-              {navLinks.map((link) => (
-                <motion.li key={link.href}>
+              {navLinks.map((link, idx) => (
+                <motion.li
+                  key={link.href}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: idx * 0.05 + 0.1 }}
+                >
                   <a
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block font-display text-4xl font-extrabold text-ink hover:text-accent transition-colors py-1"
+                    className="block font-display text-3xl font-extrabold text-ink hover:text-accent transition-colors py-1"
                   >
                     {link.label}
                   </a>
@@ -186,23 +231,33 @@ export function Navbar() {
               ))}
             </motion.ul>
 
-            <div className="flex gap-3 pt-6 border-t border-border">
-              <a
-                href={personalInfo.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center rounded-full border border-border bg-surface text-ink py-3 text-sm font-semibold hover:border-accent transition-colors"
-              >
-                GitHub
-              </a>
-              <a
-                href={personalInfo.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 text-center rounded-full bg-surface-elevated border border-border text-ink py-3 text-sm font-semibold hover:border-accent transition-colors"
-              >
-                LinkedIn
-              </a>
+            <div className="flex flex-col gap-3 pt-6 border-t border-border">
+              <div className="inline-flex items-center justify-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 py-2.5 text-xs font-semibold text-emerald-500 mb-2">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+                </span>
+                <span>Available for Engineering Roles</span>
+              </div>
+
+              <div className="flex gap-3">
+                <a
+                  href={personalInfo.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center rounded-full border border-border bg-surface text-ink py-3 text-xs font-bold hover:border-accent transition-colors"
+                >
+                  GitHub
+                </a>
+                <a
+                  href={personalInfo.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-1 text-center rounded-full bg-accent text-primary py-3 text-xs font-bold hover:opacity-90 transition-opacity"
+                >
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </motion.div>
         )}
