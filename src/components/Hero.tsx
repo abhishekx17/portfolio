@@ -41,9 +41,9 @@ export function Hero({ onShowToast }: HeroProps) {
           className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center"
         >
           {/* Left Column: Headline, Bio & CTAs */}
-          <div className="lg:col-span-7 space-y-8 lg:pr-6">
+          <div className="lg:col-span-7 space-y-6 sm:space-y-8 lg:pr-6 min-w-0 w-full">
             {/* Profile Avatar & Status Badges Header */}
-            <motion.div variants={fadeInUp} className="flex items-center gap-3 sm:gap-4">
+            <motion.div variants={fadeInUp} className="flex flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-4 max-w-full">
               <div className="relative group shrink-0">
                 <div className="h-14 w-14 sm:h-20 sm:w-20 rounded-full p-0.5 bg-gradient-to-tr from-accent via-emerald-500 to-indigo-500 shadow-lg overflow-hidden group-hover:scale-105 transition-transform duration-300">
                   <img
@@ -59,8 +59,8 @@ export function Hero({ onShowToast }: HeroProps) {
                 </span>
               </div>
 
-              <div className="space-y-1 sm:space-y-1.5 min-w-0">
-                <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 sm:px-3.5 py-1 text-[11px] sm:text-xs font-semibold text-emerald-500 shadow-xs">
+              <div className="space-y-1.5 min-w-0 flex-1 max-w-full">
+                <div className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 sm:px-3.5 py-1 text-[10px] sm:text-xs font-semibold text-emerald-500 shadow-xs">
                   <span className="relative flex h-2 w-2 shrink-0">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
@@ -68,9 +68,9 @@ export function Hero({ onShowToast }: HeroProps) {
                   <span className="truncate">{personalInfo.availability}</span>
                 </div>
 
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs font-mono font-medium text-ink-muted">
+                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-medium text-ink-muted">
                   <span className="inline-flex items-center gap-1">
-                    <MapPin className="h-3 w-3 text-accent" />
+                    <MapPin className="h-3 w-3 text-accent shrink-0" />
                     <span>{personalInfo.location}</span>
                   </span>
                   <span className="text-ink-faint">•</span>
@@ -82,7 +82,7 @@ export function Hero({ onShowToast }: HeroProps) {
             {/* Main Headline */}
             <motion.h1
               variants={fadeInUp}
-              className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight leading-[1.08] text-ink"
+              className="font-display text-2xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight leading-[1.12] text-ink break-words"
             >
               Architecting <br className="hidden sm:block" />
               Full-Stack Web <br className="hidden sm:block" />
@@ -92,7 +92,7 @@ export function Hero({ onShowToast }: HeroProps) {
             {/* Bio Paragraph */}
             <motion.p
               variants={fadeInUp}
-              className="max-w-xl text-sm sm:text-base md:text-lg text-ink-muted leading-relaxed font-normal"
+              className="max-w-xl text-xs sm:text-base md:text-lg text-ink-muted leading-relaxed font-normal"
             >
               Hi, I'm <strong className="text-ink font-semibold">{personalInfo.fullName}</strong> — a Full-Stack Engineer & MERN Specialist building performant web applications, clean REST API architectures, and modern user interfaces.
             </motion.p>
@@ -100,30 +100,30 @@ export function Hero({ onShowToast }: HeroProps) {
             {/* CTA Buttons Group */}
             <motion.div
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-1"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1 w-full"
             >
               <a
                 href="#projects"
-                className="group relative inline-flex items-center justify-center gap-2.5 rounded-full bg-ink px-7 py-3.5 text-xs font-bold text-primary hover:opacity-95 transition-all duration-300 shadow-md hover:scale-[1.02] active:scale-95 text-center"
+                className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 sm:px-7 py-3 text-xs font-bold text-primary hover:opacity-95 transition-all duration-300 shadow-md text-center w-full sm:w-auto"
               >
                 <span>View Selected Work</span>
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </a>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 w-full sm:w-auto">
                 <a
                   href={personalInfo.resumeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface px-5 py-3 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-4 py-3 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
                 >
-                  <FileText className="h-4 w-4 text-ink-muted" />
+                  <FileText className="h-3.5 w-3.5 text-ink-muted shrink-0" />
                   <span>Resume</span>
                 </a>
 
                 <a
                   href="#contact"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 rounded-full border border-border bg-surface-elevated px-5 py-3 text-xs font-bold text-ink hover:border-border-strong transition-all duration-300 shadow-xs"
+                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-surface-elevated px-4 py-3 text-xs font-bold text-ink hover:border-border-strong transition-all duration-300 shadow-xs text-center"
                 >
                   <span>Contact</span>
                 </a>
@@ -133,23 +133,23 @@ export function Hero({ onShowToast }: HeroProps) {
             {/* Bottom Quick Feature Highlights */}
             <motion.div
               variants={fadeInUp}
-              className="pt-6 flex flex-wrap items-center gap-6 border-t border-border/80 text-xs text-ink-muted font-mono font-medium"
+              className="pt-4 sm:pt-6 flex flex-wrap items-center gap-3 sm:gap-6 border-t border-border/80 text-[11px] sm:text-xs text-ink-muted font-mono font-medium"
             >
-              <div className="flex items-center gap-2">
-                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted">
-                  <Layers className="h-3.5 w-3.5" />
+              <div className="flex items-center gap-1.5">
+                <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted shrink-0">
+                  <Layers className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 </div>
                 <span>2 Production Apps</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted">
-                  <Code2 className="h-3.5 w-3.5" />
+              <div className="flex items-center gap-1.5">
+                <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted shrink-0">
+                  <Code2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 </div>
                 <span>React & Node.js</span>
               </div>
-              <div className="flex items-center gap-2">
-                <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted">
-                  <Globe className="h-3.5 w-3.5" />
+              <div className="flex items-center gap-1.5">
+                <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted shrink-0">
+                  <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                 </div>
                 <span>REST APIs & MongoDB</span>
               </div>
@@ -157,14 +157,14 @@ export function Hero({ onShowToast }: HeroProps) {
           </div>
 
           {/* Right Column: Dual-Tab Interactive Resume Card */}
-          <motion.div variants={fadeInUp} className="lg:col-span-5 flex justify-center lg:justify-end">
-            <div className="w-full max-w-sm sm:max-w-md rounded-3xl border border-border bg-surface shadow-xl overflow-hidden transition-all duration-300 hover:border-border-strong">
+          <motion.div variants={fadeInUp} className="lg:col-span-5 flex justify-center lg:justify-end w-full max-w-full">
+            <div className="w-full max-w-full sm:max-w-md rounded-3xl border border-border bg-surface shadow-xl overflow-hidden transition-all duration-300 hover:border-border-strong">
               {/* Window Header + Tabs */}
-              <div className="flex items-center justify-between border-b border-border bg-surface-elevated/80 px-4 py-3 select-none">
-                <div className="flex items-center gap-2">
-                  <span className="h-3 w-3 rounded-full bg-border-strong inline-block" />
-                  <span className="h-3 w-3 rounded-full bg-border-strong inline-block" />
-                  <span className="h-3 w-3 rounded-full bg-border-strong inline-block" />
+              <div className="flex items-center justify-between border-b border-border bg-surface-elevated/80 px-2.5 sm:px-4 py-2.5 sm:py-3 select-none flex-wrap gap-2">
+                <div className="hidden xs:flex items-center gap-1.5">
+                  <span className="h-2.5 w-2.5 rounded-full bg-border-strong inline-block" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-border-strong inline-block" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-border-strong inline-block" />
                 </div>
 
                 {/* Switcher Tabs */}
@@ -172,7 +172,7 @@ export function Hero({ onShowToast }: HeroProps) {
                   <button
                     type="button"
                     onClick={() => setActiveTab("visual")}
-                    className={`flex items-center gap-1 px-3 py-1 rounded-lg transition-colors text-[11px] font-bold ${
+                    className={`flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg transition-colors text-[10px] sm:text-[11px] font-bold ${
                       activeTab === "visual"
                         ? "bg-ink text-primary shadow-xs"
                         : "text-ink-muted hover:text-ink"
@@ -185,7 +185,7 @@ export function Hero({ onShowToast }: HeroProps) {
                   <button
                     type="button"
                     onClick={() => setActiveTab("code")}
-                    className={`flex items-center gap-1 px-3 py-1 rounded-lg transition-colors text-[11px] font-bold ${
+                    className={`flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg transition-colors text-[10px] sm:text-[11px] font-bold ${
                       activeTab === "code"
                         ? "bg-ink text-primary shadow-xs"
                         : "text-ink-muted hover:text-ink"
@@ -196,7 +196,7 @@ export function Hero({ onShowToast }: HeroProps) {
                   </button>
                 </div>
 
-                <span className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-emerald-500">
+                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono font-bold text-emerald-500">
                   <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
                   VERIFIED
                 </span>

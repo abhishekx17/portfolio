@@ -174,11 +174,11 @@ export function GithubActivity() {
         >
           {/* Header */}
           <div className="flex flex-col items-center text-center space-y-3">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-mono font-bold text-ink">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3 py-1 text-xs font-mono font-bold text-ink">
               <Activity className="h-3.5 w-3.5 text-emerald-500 animate-pulse" />
               <span>Live GitHub API Monitor</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-extrabold text-ink tracking-tight">
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold text-ink tracking-tight max-w-full">
               GitHub Activity & Contribution Radar
             </h2>
             <p className="text-xs sm:text-sm text-ink-muted max-w-md mx-auto">
@@ -187,23 +187,23 @@ export function GithubActivity() {
           </div>
 
           {/* Real Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             {/* Card 1: Public Repos */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
-              className="rounded-2xl border border-border bg-surface p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
+              className="rounded-2xl border border-border bg-surface p-4 sm:p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-ink-muted">Public Repos</span>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink">
                   <FolderGit2 className="h-4 w-4" />
                 </div>
               </div>
               <div>
-                <div className="font-display text-3xl font-extrabold text-ink">{user.public_repos}</div>
+                <div className="font-display text-2xl sm:text-3xl font-extrabold text-ink">{user.public_repos}</div>
                 <p className="text-xs text-ink-muted mt-1 font-medium">Across personal & academic projects</p>
               </div>
             </motion.div>
@@ -214,16 +214,16 @@ export function GithubActivity() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.08 }}
-              className="rounded-2xl border border-border bg-surface p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
+              className="rounded-2xl border border-border bg-surface p-4 sm:p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-ink-muted">Recent Events</span>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-emerald-500">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-emerald-500">
                   <GitCommitHorizontal className="h-4 w-4" />
                 </div>
               </div>
               <div>
-                <div className="font-display text-3xl font-extrabold text-ink">{events.length}+</div>
+                <div className="font-display text-2xl sm:text-3xl font-extrabold text-ink">{events.length}+</div>
                 <p className="text-xs text-ink-muted mt-1 font-medium">Pushes, commits & repo activity</p>
               </div>
             </motion.div>
@@ -234,11 +234,11 @@ export function GithubActivity() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.16 }}
-              className="rounded-2xl border border-border bg-surface p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
+              className="rounded-2xl border border-border bg-surface p-4 sm:p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-ink-muted">Active Project</span>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink font-bold">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink font-bold">
                   <Flame className="h-4 w-4 text-rose-500" />
                 </div>
               </div>
@@ -247,7 +247,7 @@ export function GithubActivity() {
                   {events[0]?.repo?.name.replace("abhishekx17/", "") || "QuickEMS"}
                 </div>
                 <p className="text-xs text-ink-muted mt-1 font-medium flex items-center gap-1 font-mono">
-                  <Clock className="h-3 w-3" />
+                  <Clock className="h-3 w-3 shrink-0" />
                   Updated {formatTimeAgo(events[0]?.created_at || new Date().toISOString())}
                 </p>
               </div>
@@ -259,16 +259,16 @@ export function GithubActivity() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.24 }}
-              className="rounded-2xl border border-border bg-surface p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
+              className="rounded-2xl border border-border bg-surface p-4 sm:p-5 hover:border-border-strong transition-all duration-300 shadow-xs flex flex-col justify-between"
             >
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
                 <span className="text-xs font-mono font-bold uppercase tracking-wider text-ink-muted">GitHub Network</span>
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-ink">
                   <Users className="h-4 w-4" />
                 </div>
               </div>
               <div>
-                <div className="font-display text-3xl font-extrabold text-ink">
+                <div className="font-display text-2xl sm:text-3xl font-extrabold text-ink">
                   {user.followers} <span className="text-xs font-normal text-ink-muted font-sans">Followers</span>
                 </div>
                 <a
@@ -283,13 +283,13 @@ export function GithubActivity() {
             </motion.div>
           </div>
 
-          {/* GitHub Real Contribution Calendar Card with Animated Glowing Green Commit Dots */}
+          {/* GitHub Real Contribution Calendar Card */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="group/chart rounded-3xl border border-border bg-surface p-6 md:p-8 shadow-sm relative overflow-hidden space-y-6"
+            className="group/chart rounded-3xl border border-border bg-surface p-3.5 sm:p-6 md:p-8 shadow-sm relative overflow-hidden space-y-4 sm:space-y-6 max-w-full"
           >
             {/* Continuous Laser Beam Scanning Top Border */}
             <motion.div
@@ -299,29 +299,29 @@ export function GithubActivity() {
             />
 
             {/* Header */}
-            <div className="flex items-center justify-between flex-wrap gap-3 relative z-10">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 relative z-10">
               <div className="flex items-center gap-2.5">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-emerald-500 shadow-xs">
+                <div className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-xl border border-border bg-surface-elevated text-emerald-500 shadow-xs shrink-0">
                   <Calendar className="h-4 w-4" />
                 </div>
                 <div>
-                  <h3 className="font-display text-lg font-extrabold text-ink">
+                  <h3 className="font-display text-base sm:text-lg font-extrabold text-ink">
                     GitHub Contribution Calendar
                   </h3>
-                  <p className="text-xs text-ink-muted">
+                  <p className="text-[11px] sm:text-xs text-ink-muted">
                     Real live commit history from GitHub API
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-3 flex-wrap">
+              <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
                 <button
                   type="button"
                   onClick={fetchData}
                   disabled={loading}
-                  className="inline-flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1.5 rounded-full border border-border bg-surface-elevated text-ink hover:border-border-strong transition-all shadow-xs"
+                  className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-border bg-surface-elevated text-ink hover:border-border-strong transition-all shadow-xs"
                 >
-                  <RefreshCw className={`h-3.5 w-3.5 ${loading ? "animate-spin" : ""}`} />
+                  <RefreshCw className={`h-3 w-3 sm:h-3.5 sm:w-3.5 ${loading ? "animate-spin" : ""}`} />
                   <span>{loading ? "Syncing..." : "Sync Live Data"}</span>
                 </button>
 
@@ -329,37 +329,37 @@ export function GithubActivity() {
                 <motion.div
                   animate={{ opacity: [0.8, 1, 0.8] }}
                   transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                  className="flex items-center gap-1.5 text-xs font-mono font-bold px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 shadow-xs"
+                  className="flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-500 shadow-xs"
                 >
-                  <Sparkles className="h-3.5 w-3.5" />
+                  <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
                   <span>Live GitHub API</span>
                 </motion.div>
               </div>
             </div>
 
-            {/* Interactive Animated Contribution Grid with Glowing Green Commit Dots */}
-            <div className="overflow-x-auto pb-2 custom-scrollbar flex justify-center relative z-10">
-              <div className="relative min-w-[720px] w-full max-w-4xl p-5 bg-surface-elevated border border-border rounded-2xl space-y-3">
+            {/* Interactive Animated Contribution Grid with Touch Scroll Bar */}
+            <div className="w-full max-w-full overflow-x-auto pb-2 custom-scrollbar relative z-10">
+              <div className="relative min-w-[620px] sm:min-w-[720px] w-full max-w-4xl p-3 sm:p-5 bg-surface-elevated border border-border rounded-2xl space-y-2.5 sm:space-y-3">
                 {/* Month Labels */}
-                <div className="flex justify-between pl-8 pr-2 text-[10px] font-mono font-bold text-ink-faint">
+                <div className="flex justify-between pl-6 sm:pl-8 pr-1 sm:pr-2 text-[9px] sm:text-[10px] font-mono font-bold text-ink-faint">
                   {months.map((m) => (
                     <span key={m}>{m}</span>
                   ))}
                 </div>
 
                 {/* Grid Wrapper */}
-                <div className="flex gap-2">
+                <div className="flex gap-1.5 sm:gap-2">
                   {/* Day Labels */}
-                  <div className="flex flex-col justify-between text-[9px] font-mono font-bold text-ink-faint py-1 w-6">
+                  <div className="flex flex-col justify-between text-[8px] sm:text-[9px] font-mono font-bold text-ink-faint py-1 w-5 sm:w-6">
                     <span>Mon</span>
                     <span>Wed</span>
                     <span>Fri</span>
                   </div>
 
                   {/* 52-Week Green Commit Dots Grid */}
-                  <div className="flex-1 flex gap-1 justify-between">
+                  <div className="flex-1 flex gap-0.5 sm:gap-1 justify-between">
                     {commitMatrix.map((week, wIdx) => (
-                      <div key={wIdx} className="flex flex-col gap-1">
+                      <div key={wIdx} className="flex flex-col gap-0.5 sm:gap-1">
                         {week.map((intensity, dIdx) => {
                           const cellId = `${wIdx}-${dIdx}`;
                           const isGreen = intensity > 0;
@@ -402,7 +402,7 @@ export function GithubActivity() {
                                     }
                                   : {}
                               }
-                              className={`h-2.5 w-2.5 rounded-[3px] transition-all cursor-pointer ${bgClass} ${glowClass} hover:scale-125 hover:z-20`}
+                              className={`h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-[2px] sm:rounded-[3px] transition-all cursor-pointer ${bgClass} ${glowClass} hover:scale-125 hover:z-20`}
                               title={isGreen ? `${intensity * 3} commits on activity node` : "No commits"}
                             />
                           );
@@ -413,16 +413,16 @@ export function GithubActivity() {
                 </div>
 
                 {/* Footer Intensity Legend */}
-                <div className="flex items-center justify-between pt-2 text-[10px] font-mono text-ink-faint">
+                <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 pt-2 text-[9px] sm:text-[10px] font-mono text-ink-faint">
                   <span>Hover green commit dots to inspect activity</span>
 
                   <div className="flex items-center gap-1.5">
                     <span>Less</span>
-                    <span className="h-2.5 w-2.5 rounded-[2px] bg-border/40" />
-                    <span className="h-2.5 w-2.5 rounded-[2px] bg-emerald-950/70 border border-emerald-800/40 animate-pulse" />
-                    <span className="h-2.5 w-2.5 rounded-[2px] bg-emerald-700/80 animate-pulse" />
-                    <span className="h-2.5 w-2.5 rounded-[2px] bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)] animate-pulse" />
-                    <span className="h-2.5 w-2.5 rounded-[2px] bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)] animate-pulse" />
+                    <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-[2px] bg-border/40" />
+                    <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-[2px] bg-emerald-950/70 border border-emerald-800/40 animate-pulse" />
+                    <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-[2px] bg-emerald-700/80 animate-pulse" />
+                    <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-[2px] bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)] animate-pulse" />
+                    <span className="h-2 w-2 sm:h-2.5 sm:w-2.5 rounded-[2px] bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)] animate-pulse" />
                     <span>More</span>
                   </div>
                 </div>
@@ -430,23 +430,23 @@ export function GithubActivity() {
             </div>
 
             {/* Footer Direct Link & Live Monitor Status */}
-            <div className="flex items-center justify-between pt-4 border-t border-border text-xs text-ink-muted flex-wrap gap-3 font-mono relative z-10">
-              <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[11px] font-semibold text-emerald-500">
-                <span className="relative flex h-2 w-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between pt-3 sm:pt-4 border-t border-border text-xs text-ink-muted gap-2.5 font-mono relative z-10">
+              <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 px-3 py-1 text-[10px] sm:text-[11px] font-semibold text-emerald-500 truncate">
+                <span className="relative flex h-2 w-2 shrink-0">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                 </span>
-                <span>Live Matrix Monitor • Synced with github.com/abhishekx17</span>
+                <span className="truncate">Live Matrix Monitor • Synced with github.com/abhishekx17</span>
               </div>
 
               <a
                 href={personalInfo.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-bold text-ink hover:underline inline-flex items-center gap-1.5"
+                className="font-bold text-ink hover:underline inline-flex items-center gap-1.5 text-xs"
               >
                 <span>View Profile on GitHub</span>
-                <ArrowUpRight className="h-3.5 w-3.5" />
+                <ArrowUpRight className="h-3.5 w-3.5 shrink-0" />
               </a>
             </div>
           </motion.div>

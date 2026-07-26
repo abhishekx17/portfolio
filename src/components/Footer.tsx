@@ -10,7 +10,7 @@ export function Footer() {
 
   return (
     <footer className="relative border-t border-border bg-surface/80 backdrop-blur-md pt-16 pb-12 overflow-hidden z-10">
-      <div className="mx-auto max-w-6xl px-6 md:px-8 relative z-10">
+      <div className="mx-auto max-w-6xl px-4 sm:px-8 md:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 pb-12 border-b border-border/80">
           {/* Col 1: Brand & Availability (5 cols) */}
           <div className="md:col-span-5 space-y-4">

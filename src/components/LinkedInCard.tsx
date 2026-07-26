@@ -25,10 +25,10 @@ export function LinkedInCard({ onShowToast, className = "" }: LinkedInCardProps)
       href={linkedinDetails.profileUrl}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative flex flex-col justify-between rounded-3xl border border-border bg-surface p-5 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs ${className}`}
+      className={`group relative flex flex-col justify-between rounded-3xl border border-border bg-surface p-4 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs ${className}`}
     >
       {/* Top Header Badge & External Arrow */}
-      <div className="flex items-center justify-between z-10 mb-4">
+      <div className="flex items-center justify-between z-10 mb-3 sm:mb-4">
         <div className="flex items-center gap-2">
           <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-border bg-surface-elevated text-ink">
             <LinkedInIcon className="h-4 w-4" />
@@ -44,11 +44,11 @@ export function LinkedInCard({ onShowToast, className = "" }: LinkedInCardProps)
       </div>
 
       {/* Main Content Body */}
-      <div className="space-y-4 z-10">
+      <div className="space-y-3.5 sm:space-y-4 z-10">
         {/* Profile Avatar & Name Header */}
-        <div className="flex items-start gap-4">
+        <div className="flex flex-row items-start gap-3 sm:gap-4">
           <div className="relative shrink-0">
-            <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl p-0.5 bg-surface-elevated border border-border shadow-xs overflow-hidden group-hover:scale-105 transition-transform">
+            <div className="h-14 w-14 sm:h-20 sm:w-20 rounded-2xl p-0.5 bg-surface-elevated border border-border shadow-xs overflow-hidden group-hover:scale-105 transition-transform">
               <img
                 src={linkedinDetails.profilePic}
                 alt={`${linkedinDetails.name} LinkedIn Avatar`}

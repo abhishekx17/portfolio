@@ -40,7 +40,7 @@ export function About({ onShowToast }: AboutProps) {
             {/* BENTO TILE 1: Learn More About Me */}
             <a
               href="#contact"
-              className="group relative md:col-span-7 flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs"
+              className="group relative md:col-span-7 flex flex-col justify-between rounded-3xl border border-border bg-surface p-4 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs"
             >
               <div className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-surface-elevated border border-border text-ink opacity-70 group-hover:opacity-100 group-hover:scale-110 transition-all">
                 <ArrowUpRight className="h-4 w-4" />
@@ -68,7 +68,7 @@ export function About({ onShowToast }: AboutProps) {
             </a>
 
             {/* BENTO TILE 2: GitHub & Social Presence */}
-            <div className="group relative md:col-span-5 flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs">
+            <div className="group relative md:col-span-5 flex flex-col justify-between rounded-3xl border border-border bg-surface p-4 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs">
               <div className="space-y-4 z-10">
                 <div className="flex items-center justify-between">
                   <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink-muted">
@@ -127,7 +127,7 @@ export function About({ onShowToast }: AboutProps) {
             </div>
 
             {/* BENTO TILE 3: Developer Tools Card */}
-            <div className="group relative md:col-span-6 flex flex-col justify-between rounded-3xl border border-border bg-surface p-6 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs">
+            <div className="group relative md:col-span-6 flex flex-col justify-between rounded-3xl border border-border bg-surface p-4 sm:p-8 hover:border-border-strong hover:bg-surface-elevated transition-all duration-300 overflow-hidden shadow-xs">
               <div className="space-y-3 z-10">
                 <h3 className="font-display text-xl font-bold text-ink flex items-center gap-2">
                   <Terminal className="h-5 w-5 text-ink-muted" />

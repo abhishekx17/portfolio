@@ -35,7 +35,7 @@ export function Contact({ onShowToast }: ContactProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-60px" }}
           transition={{ duration: 0.6, ease: smoothEase }}
-          className="mx-auto max-w-3xl rounded-3xl border border-border bg-surface p-8 sm:p-12 glass-card shadow-lg text-center space-y-8 relative overflow-hidden"
+          className="mx-auto max-w-3xl rounded-3xl border border-border bg-surface p-5 sm:p-12 glass-card shadow-lg text-center space-y-8 relative overflow-hidden"
         >
           {/* Header & Availability Badge */}
           <div className="space-y-4">

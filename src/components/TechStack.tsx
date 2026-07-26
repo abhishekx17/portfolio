@@ -86,7 +86,7 @@ export function TechStack() {
           {/* Main Interactive Deck */}
           <motion.div
             variants={fadeInUp}
-            className="group/deck relative rounded-3xl border border-border bg-surface p-6 sm:p-8 shadow-sm space-y-6 overflow-hidden"
+            className="group/deck relative rounded-3xl border border-border bg-surface p-4 sm:p-8 shadow-sm space-y-6 overflow-hidden"
           >
             {/* Ambient Background Grid Pattern */}
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#1f293708_1px,transparent_1px),linear-gradient(to_bottom,#1f293708_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
