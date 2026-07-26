@@ -29,7 +29,7 @@ export function TechStack() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [isAutoPlay, setIsAutoPlay] = useState(true);
   const userInteractedRef = useRef(false);
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeItem = techStack[selectedIndex] || techStack[0];
   const IconComponent = logoMap[activeItem.iconKey];

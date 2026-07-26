@@ -13,7 +13,6 @@ import {
   Activity,
 } from "lucide-react";
 import { personalInfo } from "../data/portfolio";
-import { useTheme } from "../hooks/useTheme";
 
 interface GitHubUser {
   public_repos: number;
@@ -119,8 +118,6 @@ export function GithubActivity() {
   const [user, setUser] = useState<GitHubUser>(FALLBACK_USER);
   const [events, setEvents] = useState<GitHubEvent[]>(FALLBACK_EVENTS);
   const [loading, setLoading] = useState(false);
-  const [hoveredCell, setHoveredCell] = useState<{ week: number; day: number; intensity: number } | null>(null);
-  const { theme } = useTheme();
 
   const commitMatrix = useMemo(() => generateCommitMatrix(), []);
 
@@ -382,8 +379,6 @@ export function GithubActivity() {
                           return (
                             <motion.div
                               key={cellId}
-                              onMouseEnter={() => setHoveredCell({ week: wIdx, day: dIdx, intensity })}
-                              onMouseLeave={() => setHoveredCell(null)}
                               animate={
                                 isGreen
                                   ? {
