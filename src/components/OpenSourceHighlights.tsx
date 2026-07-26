@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { GitPullRequest, ArrowUpRight, CheckCircle2, Code2, ShieldCheck, Database, Layers } from "lucide-react";
+import { GitPullRequest, ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { openSourceHighlights, personalInfo } from "../data/portfolio";
-import { fadeInUp, staggerContainer, softSpring } from "../lib/motion";
+import { fadeInUp, staggerContainer } from "../lib/motion";
 
 export function OpenSourceHighlights() {
   const [activeSnippetIndex, setActiveSnippetIndex] = useState<number | null>(0);

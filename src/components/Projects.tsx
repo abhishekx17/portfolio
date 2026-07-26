@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Code2, ExternalLink, X, Sparkles, CheckCircle2, Layers } from "lucide-react";
+import { ArrowUpRight, ExternalLink, X, Sparkles, CheckCircle2, Layers } from "lucide-react";
 import { GitHubIcon } from "./icons/SocialIcons";
 import { projects } from "../data/portfolio";
-import { smoothEase, fadeInUp, staggerContainer } from "../lib/motion";
+import { fadeInUp, staggerContainer } from "../lib/motion";
 
 export function Projects() {
   const [selectedProject, setSelectedProject] = useState<string | null>(null);
@@ -35,7 +35,7 @@ export function Projects() {
           </motion.div>
 
           <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
-            {projects.map((project, i) => (
+            {projects.map((project) => (
               <motion.div
                 key={project.title}
                 variants={fadeInUp}

@@ -12,7 +12,7 @@ import {
 } from "./icons/TechLogos";
 import { techStack } from "../data/portfolio";
 import { fadeInUp, staggerContainer, softSpring } from "../lib/motion";
-import { Cpu, Sparkles, CheckCircle2 } from "lucide-react";
+import { Cpu, CheckCircle2 } from "lucide-react";
 
 const logoMap: Record<string, React.ComponentType<{ className?: string }>> = {
   react: ReactLogo,
