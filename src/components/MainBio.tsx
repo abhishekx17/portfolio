@@ -103,6 +103,8 @@ export function MainBio() {
                   src="/linkedin-pfp.jpeg"
                   alt="Abhishek Kumar"
                   className="w-full h-full object-cover"
+                  loading="eager"
+                  decoding="async"
                 />
 
                 {/* SVG White Doodled Lightning Bolts */}
@@ -278,11 +280,12 @@ export function MainBio() {
 
                 {/* Animated foreground line that draws on scroll */}
                 <motion.div
-                  initial={{ height: 0 }}
-                  whileInView={{ height: "100%" }}
+                  initial={{ scaleY: 0 }}
+                  whileInView={{ scaleY: 1 }}
                   viewport={{ once: true, margin: "-40px" }}
                   transition={{ duration: 1.5, ease: "easeInOut" }}
-                  className="absolute left-[7px] top-1.5 bottom-1.5 w-[2px] bg-[#ff8a00] origin-top"
+                  style={{ transformOrigin: "top" }}
+                  className="absolute left-[7px] top-1.5 bottom-1.5 w-[2px] bg-[#ff8a00]"
                 />
 
                 {experiences.map((exp, idx) => (

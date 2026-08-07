@@ -4,6 +4,7 @@ import { Sparkles, ArrowUpRight, Plus } from "lucide-react";
 import { GitHubIcon as GithubIcon } from "./icons/SocialIcons";
 import { projects, personalInfo } from "../data/portfolio";
 import { ThreeDScene } from "./ThreeDScene";
+import { LazyMount } from "./LazyMount";
 
 interface Project {
   title: string;
@@ -88,12 +89,14 @@ function ProjectCard({ project, color }: { project: Project; color: string }) {
           <motion.img
             src={project.image}
             alt={project.title}
+            loading="lazy"
+            decoding="async"
             style={{
               x: imageX,
               y: imageY,
               scale: 1.04,
             }}
-            className="w-full h-auto block select-none transition-transform duration-500"
+            className="w-full h-auto block select-none"
           />
         </div>
       </div>
@@ -146,19 +149,11 @@ function ProjectCard({ project, color }: { project: Project; color: string }) {
                 href={project.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex-1 group inline-flex items-center justify-center gap-1 px-4 py-2 rounded-full border text-[10px] font-bold transition-all duration-300 text-white hover:text-zinc-950 shadow-xs text-center cursor-pointer font-mono"
+                className="live-btn flex-1 group inline-flex items-center justify-center gap-1 px-4 py-2 rounded-full border text-[10px] font-bold transition-all duration-300 text-white shadow-xs text-center cursor-pointer font-mono"
                 style={{
                   borderColor: color,
-                  backgroundColor: "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.backgroundColor = color;
-                  e.currentTarget.style.borderColor = color;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.backgroundColor = "transparent";
-                  e.currentTarget.style.borderColor = color;
-                }}
+                  "--hover-color": color,
+                } as React.CSSProperties}
               >
                 <span>LIVE_APP</span>
                 <ArrowUpRight className="h-3 w-3 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -261,8 +256,10 @@ export function Projects() {
       className="relative w-full py-16 sm:py-20 text-[#f4f4f5] overflow-hidden select-none border-t border-zinc-900 bg-[#121212]"
     >
       
-      {/* 3D Scene Background */}
-      <ThreeDScene />
+      {/* 3D Scene Background — lazy-mounted so Three.js only initialises when near viewport */}
+      <LazyMount className="absolute inset-0 -z-10" rootMargin="300px">
+        <ThreeDScene />
+      </LazyMount>
 
       <div className="relative z-10 mx-auto max-w-5xl w-full px-6 md:px-8">
         

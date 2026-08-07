@@ -40,3 +40,43 @@ export const scaleUp = {
     transition: { duration: 0.4, ease: smoothEase },
   },
 };
+
+/** Slide in from the left — useful for side-by-side reveal layouts */
+export const slideInLeft = {
+  hidden: { opacity: 0, x: -40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: smoothEase },
+  },
+};
+
+/** Slide in from the right — useful for side-by-side reveal layouts */
+export const slideInRight = {
+  hidden: { opacity: 0, x: 40 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.55, ease: smoothEase },
+  },
+};
+
+/**
+ * Returns opacity-only variants when the user has prefers-reduced-motion
+ * enabled, otherwise returns the provided variants unchanged.
+ * Usage: whileInView="visible" initial="hidden" variants={reducedMotion(fadeInUp)}
+ */
+export function reducedMotion<T extends object>(variants: T): T {
+  const prefersReduced =
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!prefersReduced) return variants;
+
+  // Strip out transform-based keys, keeping only opacity transitions
+  return {
+    ...(variants as Record<string, unknown>),
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.3 } },
+  } as T;
+}

@@ -153,7 +153,7 @@ export function ThreeDScene() {
   }, []);
 
   return (
-    <div ref={containerRef} className="absolute inset-0 -z-10 w-full h-full pointer-events-none overflow-hidden opacity-60">
+    <div ref={containerRef} className="w-full h-full pointer-events-none overflow-hidden opacity-60">
       <canvas ref={canvasRef} className="w-full h-full block" />
     </div>
   );

@@ -13,24 +13,34 @@ export function Navbar() {
   const progress = useScrollProgress();
 
   useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 25);
+    let rafId: number | null = null;
 
-      const sections = ["home", "about", "projects", "contact"];
-      const current = sections.find((sec) => {
-        const el = document.getElementById(sec);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top <= 240 && rect.bottom >= 200;
-        }
-        return false;
+    const onScroll = () => {
+      // Throttle: only schedule one RAF callback per scroll burst
+      if (rafId !== null) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        setScrolled(window.scrollY > 25);
+
+        const sections = ["home", "about", "projects", "contact"];
+        const current = sections.find((sec) => {
+          const el = document.getElementById(sec);
+          if (el) {
+            const rect = el.getBoundingClientRect();
+            return rect.top <= 240 && rect.bottom >= 200;
+          }
+          return false;
+        });
+        if (current) setActiveSection(`#${current}`);
       });
-      if (current) setActiveSection(`#${current}`);
     };
 
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   useEffect(() => {
@@ -49,10 +59,10 @@ export function Navbar() {
         className="fixed top-0 left-0 right-0 z-40 flex justify-center px-3 pt-3.5 pb-2"
       >
         <div
-          className={`relative w-full max-w-6xl rounded-full transition-all duration-300 ${
+          className={`relative w-full max-w-5xl rounded-full transition-all duration-300 border-2 border-neutral-950 shadow-md ${
             scrolled
-              ? "bg-surface/90 backdrop-blur-xl border border-border shadow-lg py-2 px-5"
-              : "bg-surface/60 backdrop-blur-md border border-border/60 py-2.5 px-5"
+              ? "bg-white/95 backdrop-blur-xl py-2 px-5"
+              : "bg-[#faf9f6]/95 backdrop-blur-md py-2.5 px-5"
           }`}
         >
           {/* Scroll Progress Line */}
@@ -68,16 +78,16 @@ export function Navbar() {
               className="group flex items-center gap-2.5 hover:opacity-90 transition-opacity"
               aria-label="Home"
             >
-              <div className="relative flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface-elevated overflow-hidden shadow-xs">
-                <span className="font-display font-black text-xs text-accent">AK</span>
+              <div className="relative flex h-8 w-8 items-center justify-center rounded-full border-2 border-neutral-950 bg-neutral-950 overflow-hidden shadow-sm shrink-0">
+                <span className="font-display font-black text-xs text-[#ff8a00]">AK</span>
               </div>
-              <span className="hidden sm:inline-block font-display font-bold text-sm text-ink tracking-tight">
+              <span className="hidden sm:inline-block font-display font-bold text-sm text-neutral-950 tracking-tight">
                 {personalInfo.fullName}
               </span>
             </a>
 
-            {/* Center: Floating Pill Navigation Menu */}
-            <ul className="hidden md:flex items-center gap-1 bg-surface-elevated/90 border border-border/80 rounded-full px-3 py-1.5 shadow-xs">
+            {/* Center: Navigation Menu */}
+            <ul className="hidden md:flex items-center gap-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.href;
 
@@ -85,18 +95,21 @@ export function Navbar() {
                   <li key={link.href} className="relative">
                     <a
                       href={link.href}
-                      className={`relative z-10 block rounded-full px-3.5 py-1 text-xs font-semibold tracking-wide transition-colors duration-300 ${
-                        isActive ? "text-ink font-extrabold" : "text-ink-muted hover:text-ink"
+                      className={`relative z-10 block rounded-full px-4 py-1 text-xs font-bold tracking-wide transition-colors duration-300 ${
+                        isActive ? "text-white" : "text-neutral-700 hover:text-neutral-950"
                       }`}
                     >
                       {link.label}
                     </a>
                     {isActive && (
-                      <motion.div
-                        layoutId="activeNavPill"
-                        transition={springTransition}
-                        className="absolute inset-0 rounded-full bg-surface border border-border/80 shadow-xs"
-                      />
+                      <>
+                        <motion.div
+                          layoutId="activeNavPill"
+                          transition={springTransition}
+                          className="absolute inset-0 rounded-full bg-neutral-950 -z-10"
+                        />
+                        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#ff8a00]" />
+                      </>
                     )}
                   </li>
                 );
@@ -105,13 +118,13 @@ export function Navbar() {
 
             {/* Right: Social Links */}
             <div className="flex items-center gap-2">
-              <div className="hidden md:flex items-center gap-1 rounded-full bg-surface-elevated/80 border border-border/70 p-1 shadow-xs">
+              <div className="hidden md:flex items-center gap-1 rounded-full border-2 border-neutral-950 bg-white p-0.5 shadow-sm">
                 <a
                   href={personalInfo.github}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
-                  className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
+                  className="p-1.5 text-neutral-800 hover:text-black transition-colors rounded-full"
                 >
                   <SocialIcons.github className="h-4 w-4" />
                 </a>
@@ -120,7 +133,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
-                  className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
+                  className="p-1.5 text-neutral-800 hover:text-black transition-colors rounded-full"
                 >
                   <SocialIcons.linkedin className="h-4 w-4" />
                 </a>
@@ -129,7 +142,7 @@ export function Navbar() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Instagram"
-                  className="p-1.5 text-ink-muted hover:text-ink transition-colors rounded-full"
+                  className="p-1.5 text-neutral-800 hover:text-black transition-colors rounded-full"
                 >
                   <SocialIcons.instagram className="h-4 w-4" />
                 </a>
@@ -138,7 +151,7 @@ export function Navbar() {
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="md:hidden p-2 text-ink hover:text-[#ff8a00] transition-colors"
+                className="md:hidden p-2 text-neutral-900 hover:text-[#ff8a00] transition-colors"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />
