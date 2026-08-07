@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, ReactNode } from "react";
+import { useState, useEffect, useRef, type ReactNode } from "react";
 
 /**
  * LazyMount — only renders children when the container element enters the
