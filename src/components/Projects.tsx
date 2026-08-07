@@ -1,248 +1,303 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ExternalLink, X, Sparkles, CheckCircle2, Layers } from "lucide-react";
-import { GitHubIcon } from "./icons/SocialIcons";
-import { projects } from "../data/portfolio";
-import { fadeInUp, staggerContainer } from "../lib/motion";
+import { useRef } from "react";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { Sparkles, ArrowUpRight, Plus } from "lucide-react";
+import { GitHubIcon as GithubIcon } from "./icons/SocialIcons";
+import { projects, personalInfo } from "../data/portfolio";
+import { ThreeDScene } from "./ThreeDScene";
 
-export function Projects() {
-  const [selectedProject, setSelectedProject] = useState<string | null>(null);
+interface Project {
+  title: string;
+  domainUrl: string;
+  overview: string;
+  description: string;
+  image: string;
+  highlights: string[];
+  tags: string[];
+  github?: string;
+  live?: string;
+}
 
-  const activeProject = projects.find((p) => p.title === selectedProject);
+// 3D Perspective Tilt Card Component (Compact Sizing)
+function ProjectCard({ project, color }: { project: Project; color: string }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { damping: 20, stiffness: 180 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { damping: 20, stiffness: 180 });
+
+  const imageX = useSpring(useTransform(mouseX, [-0.5, 0.5], [3, -3]), { damping: 25, stiffness: 160 });
+  const imageY = useSpring(useTransform(mouseY, [-0.5, 0.5], [3, -3]), { damping: 25, stiffness: 160 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    
+    const relX = (e.clientX - rect.left) / rect.width - 0.5;
+    const relY = (e.clientY - rect.top) / rect.height - 0.5;
+
+    mouseX.set(relX);
+    mouseY.set(relY);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   return (
-    <section id="projects" className="py-20 md:py-28 relative overflow-hidden select-none">
-      <div className="mx-auto max-w-6xl px-4 md:px-6 relative z-10">
-        <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-          className="space-y-12"
-        >
-          {/* Header */}
-          <motion.div variants={fadeInUp} className="text-center space-y-3">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-3.5 py-1 text-xs font-mono font-bold text-ink">
-              <Layers className="h-3.5 w-3.5 text-ink-muted" />
-              <span>Selected Work</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-extrabold text-ink tracking-tight">
-              Featured Full-Stack Web Applications
-            </h2>
-            <p className="text-sm sm:text-base text-ink-muted max-w-xl mx-auto">
-              Production web platforms featuring role-based auth, payroll automation, Cloudinary hosting, and Razorpay gateways.
-            </p>
-          </motion.div>
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        perspective: 1000,
+      }}
+      className="relative w-full rounded-lg border border-zinc-850 bg-[#1a1a1a]/80 backdrop-blur-xs p-4 flex flex-col justify-between shadow-md hover:shadow-[0_10px_30px_rgba(0,0,0,0.35)] hover:border-zinc-700 hover:bg-[#1e1e1e]/95 transition-all duration-300 group cursor-default"
+    >
+      {/* Glossy Overlay Reflection */}
+      <div 
+        className="absolute inset-0 pointer-events-none z-30 opacity-40 rounded-lg transition-opacity duration-300"
+        style={{
+          background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 50%, rgba(255,255,255,0) 100%)",
+        }}
+      />
 
-          <div className="grid md:grid-cols-2 gap-8 lg:gap-10">
-            {projects.map((project) => (
-              <motion.div
-                key={project.title}
-                variants={fadeInUp}
-                className="group relative flex flex-col rounded-3xl border border-border bg-surface overflow-hidden shadow-md hover:border-border-strong hover:shadow-xl transition-all duration-500"
-              >
-                {/* Image Preview Container */}
-                <div
-                  className="relative aspect-[16/10] overflow-hidden bg-surface-elevated cursor-pointer"
-                  onClick={() => setSelectedProject(project.title)}
-                >
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="h-full w-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-transparent to-transparent" />
-
-                  {/* Top Domain & Status Badges */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20 pointer-events-none">
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface/90 backdrop-blur-md px-3.5 py-1.5 text-[11px] font-mono font-bold text-ink shadow-xs">
-                      <Sparkles className="h-3 w-3 text-ink-muted" />
-                      {project.domainUrl}
-                    </span>
-
-                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-md px-3 py-1 text-[10px] font-mono font-bold text-emerald-500">
-                      Live App
-                    </span>
-                  </div>
-
-                  {/* Hover Overlay Trigger */}
-                  <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-primary/60 backdrop-blur-xs">
-                    <span className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3 text-xs font-bold text-primary shadow-xl hover:scale-105 transition-transform font-mono">
-                      <span>Explore Architecture</span>
-                      <ArrowUpRight className="h-4 w-4" />
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card Body Info */}
-                <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-6">
-                  <div>
-                    <div className="flex items-center justify-between gap-4 mb-2">
-                      <h3 className="font-display text-2xl font-bold text-ink tracking-tight">
-                        {project.title}
-                      </h3>
-                      <div className="flex items-center gap-2">
-                        {project.github && (
-                          <a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-9 w-9 items-center justify-center rounded-full border border-border bg-surface-elevated text-ink hover:text-white hover:border-border-strong transition-all shadow-xs"
-                            title="View GitHub Repository"
-                          >
-                            <GitHubIcon className="h-4 w-4" />
-                          </a>
-                        )}
-                        {project.live && (
-                          <a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="flex h-9 w-9 items-center justify-center rounded-full bg-ink text-primary hover:opacity-90 transition-all shadow-md"
-                            title="Open Live Application"
-                          >
-                            <ExternalLink className="h-4 w-4" />
-                          </a>
-                        )}
-                      </div>
-                    </div>
-
-                    <p className="text-xs text-ink-muted leading-relaxed mb-4">
-                      {project.overview}
-                    </p>
-
-                    {/* Feature Highlights Pills */}
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {project.highlights.map((h) => (
-                        <span
-                          key={h}
-                          className="inline-flex items-center gap-1 rounded-lg bg-surface-elevated border border-border px-2.5 py-1 text-[11px] font-mono font-semibold text-ink"
-                        >
-                          <CheckCircle2 className="h-3 w-3 text-emerald-500" />
-                          <span>{h}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Tech Tags */}
-                  <div className="pt-4 border-t border-border flex items-center justify-between text-xs font-mono">
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tags.map((t) => (
-                        <span key={t} className="text-ink-faint">
-                          #{t}
-                        </span>
-                      ))}
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedProject(project.title)}
-                      className="text-ink font-bold hover:underline"
-                    >
-                      Details →
-                    </button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
+      {/* 3D Browser Mockup Block */}
+      <div 
+        style={{ transform: "translateZ(10px)" }}
+        className="relative w-full rounded-md border border-zinc-800 bg-zinc-950 overflow-hidden flex flex-col mb-4 shrink-0 shadow-xs"
+      >
+        {/* Browser Top Bar */}
+        <div className="h-7.5 bg-zinc-900 border-b border-zinc-850 px-2.5 flex items-center gap-1.5 shrink-0 select-none">
+          <div className="w-1.5 h-1.5 rounded-full bg-rose-500" />
+          <div className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+          <div className="ml-3 flex-1 h-4.5 bg-zinc-950/80 rounded border border-zinc-800/40 flex items-center px-2 text-[8px] font-mono text-zinc-500 truncate">
+            https://{project.domainUrl}
           </div>
-        </motion.div>
+        </div>
+
+        {/* Screenshot Container */}
+        <div className="relative w-full overflow-hidden bg-zinc-950">
+          <motion.img
+            src={project.image}
+            alt={project.title}
+            style={{
+              x: imageX,
+              y: imageY,
+              scale: 1.04,
+            }}
+            className="w-full h-auto block select-none transition-transform duration-500"
+          />
+        </div>
       </div>
 
-      {/* Interactive Modal View */}
-      <AnimatePresence>
-        {selectedProject && activeProject && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-primary/95 backdrop-blur-xl overflow-y-auto select-auto"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setSelectedProject(null);
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
-              className="relative w-full max-w-3xl rounded-3xl border border-border bg-surface shadow-2xl p-6 sm:p-8 space-y-6 my-auto"
-            >
-              <button
-                type="button"
-                onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 p-2 text-ink-muted hover:text-ink rounded-full bg-surface-elevated border border-border"
+      {/* Project Details */}
+      <div style={{ transform: "translateZ(5px)" }} className="flex-1 flex flex-col justify-between space-y-3">
+        
+        <div className="space-y-1.5">
+          {/* Title & Domain URL */}
+          <div className="flex items-start justify-between gap-3">
+            <h3 className="font-serif-display text-xl sm:text-2xl font-black text-[#faf9f6] uppercase tracking-tight">
+              {project.title}
+            </h3>
+            <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded-sm border border-zinc-800 bg-zinc-900/50 text-zinc-400">
+              {project.domainUrl}
+            </span>
+          </div>
+
+          {/* Description */}
+          <p className="text-zinc-400 text-[11px] sm:text-xs leading-relaxed font-normal min-h-[44px]">
+            {project.overview}
+          </p>
+
+          {/* Highlights List */}
+          <div className="space-y-1 pt-0.5">
+            <ul className="space-y-0.5 text-[10px] text-zinc-500 font-semibold font-mono">
+              {project.highlights.slice(0, 2).map((highlight, hIdx) => (
+                <li key={hIdx} className="flex items-center gap-1.5">
+                  <span className="h-1 w-1 rounded-full shrink-0" style={{ backgroundColor: color }} />
+                  <span className="truncate">{highlight.toUpperCase()}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Tech tags & links */}
+        <div className="space-y-3 pt-2.5 border-t border-zinc-850">
+          <div className="flex flex-wrap gap-1">
+            {project.tags.slice(0, 4).map((tag) => (
+              <span key={tag} className="px-1.5 py-0.5 rounded-sm border border-zinc-800 bg-zinc-900 text-[8px] font-mono text-zinc-400">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex items-center gap-2">
+            {project.live && (
+              <a
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 group inline-flex items-center justify-center gap-1 px-4 py-2 rounded-full border text-[10px] font-bold transition-all duration-300 text-white hover:text-zinc-950 shadow-xs text-center cursor-pointer font-mono"
+                style={{
+                  borderColor: color,
+                  backgroundColor: "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = color;
+                  e.currentTarget.style.borderColor = color;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = "transparent";
+                  e.currentTarget.style.borderColor = color;
+                }}
               >
-                <X className="h-5 w-5" />
-              </button>
+                <span>LIVE_APP</span>
+                <ArrowUpRight className="h-3 w-3 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </a>
+            )}
 
-              <div className="space-y-2">
-                <div className="flex items-center gap-3">
-                  <h3 className="font-display text-2xl sm:text-3xl font-extrabold text-ink">
-                    {activeProject.title}
-                  </h3>
-                  <span className="rounded-full bg-surface-elevated border border-border px-3 py-1 text-xs font-mono font-bold text-ink">
-                    MERN Stack
-                  </span>
-                </div>
-                <p className="text-xs font-mono text-ink-muted">{activeProject.domainUrl}</p>
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-8.5 w-8.5 items-center justify-center rounded-full border border-zinc-800 bg-transparent text-zinc-400 hover:text-white hover:border-zinc-500 transition-colors cursor-pointer"
+                title="GitHub Repo"
+              >
+                <GithubIcon className="h-3.5 w-3.5" />
+              </a>
+            )}
+          </div>
+        </div>
+
+      </div>
+    </motion.div>
+  );
+}
+
+// 3D Perspective Tilt for the "More Projects" placeholder card
+function MoreProjectsCard() {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [6, -6]), { damping: 20, stiffness: 180 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-6, 6]), { damping: 20, stiffness: 180 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current;
+    if (!card) return;
+    const rect = card.getBoundingClientRect();
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
+  };
+
+  return (
+    <motion.div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateX,
+        rotateY,
+        transformStyle: "preserve-3d",
+        perspective: 1000,
+      }}
+      className="relative w-full rounded-lg border border-dashed border-zinc-800 bg-[#161616]/40 backdrop-blur-xs p-5 flex flex-col justify-between min-h-[350px] shadow-sm hover:shadow-[0_8px_20px_rgba(0,0,0,0.25)] hover:border-zinc-700 transition-all duration-300 group cursor-default"
+    >
+      <div style={{ transform: "translateZ(10px)" }} className="space-y-4 pt-4">
+        {/* Placeholder Icon */}
+        <div className="w-10 h-10 rounded-lg border border-zinc-800 bg-zinc-900/50 flex items-center justify-center text-zinc-500 group-hover:text-[#ff8a00] group-hover:border-[#ff8a00]/30 transition-all">
+          <Plus className="h-5 w-5 animate-pulse" />
+        </div>
+
+        {/* Text Details */}
+        <div className="space-y-1.5">
+          <h3 className="font-serif-display text-lg font-black text-zinc-300 uppercase tracking-tight">
+            More Coming Soon
+          </h3>
+          <p className="text-zinc-550 text-[11px] sm:text-xs leading-relaxed font-normal">
+            Building serverless API workflows, custom databases, and autonomous AI agents. Check my GitHub repository list for live experiments.
+          </p>
+        </div>
+      </div>
+
+      {/* Explore GitHub CTA */}
+      <div style={{ transform: "translateZ(5px)" }} className="pt-4 border-t border-zinc-900">
+        <a
+          href={personalInfo.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full group inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-full border border-zinc-800 bg-zinc-900/50 hover:bg-[#ff8a00] hover:text-neutral-950 hover:border-[#ff8a00] text-[10px] font-bold text-zinc-350 transition-all duration-300 cursor-pointer font-mono"
+        >
+          <span>EXPLORE_ARCHIVE.DB</span>
+          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        </a>
+      </div>
+    </motion.div>
+  );
+}
+
+export function Projects() {
+  const projectColors = ["#ff8a00", "#10b981", "#f59e0b"];
+
+  return (
+    <section 
+      id="projects" 
+      className="relative w-full py-16 sm:py-20 text-[#f4f4f5] overflow-hidden select-none border-t border-zinc-900 bg-[#121212]"
+    >
+      
+      {/* 3D Scene Background */}
+      <ThreeDScene />
+
+      <div className="relative z-10 mx-auto max-w-5xl w-full px-6 md:px-8">
+        
+        {/* Header Block */}
+        <div className="mb-10 text-center space-y-4">
+          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-850 bg-zinc-900/50 px-4 py-1 text-xs font-mono font-bold text-zinc-400">
+            <Sparkles className="h-3.5 w-3.5 text-[#ff8a00]" />
+            <span>SELECTED_BUILDS.DB</span>
+          </div>
+          <h2 className="font-sketchy text-4xl sm:text-5xl text-[#faf9f6]">
+            Selected Works
+          </h2>
+          <p className="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto font-normal">
+            Explore my production integrations arranged as compact 3D hover-interactive card decks.
+          </p>
+        </div>
+
+        {/* 2-Column Responsive Card Grid (Compact) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+          {projects.map((project, idx) => {
+            const color = projectColors[idx % projectColors.length];
+            return (
+              <div key={project.title} className="w-full flex">
+                <ProjectCard project={project} color={color} />
               </div>
+            );
+          })}
+          
+          {/* 4th Card Slot: Zine-themed More Coming Soon */}
+          <div className="w-full flex">
+            <MoreProjectsCard />
+          </div>
+        </div>
 
-              <div className="rounded-2xl border border-border overflow-hidden max-h-[40vh]">
-                <img
-                  src={activeProject.image}
-                  alt={activeProject.title}
-                  className="w-full h-full object-cover object-top"
-                />
-              </div>
-
-              <div className="space-y-3">
-                <h4 className="font-display font-bold text-sm text-ink uppercase tracking-wider">
-                  Project Description & Architecture
-                </h4>
-                <p className="text-sm text-ink-muted leading-relaxed font-sans">
-                  {activeProject.description}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border">
-                <div className="flex gap-2">
-                  {activeProject.github && (
-                    <a
-                      href={activeProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-border bg-surface-elevated px-5 py-2.5 text-xs font-bold text-ink hover:border-border-strong font-mono"
-                    >
-                      <GitHubIcon className="h-4 w-4" />
-                      <span>GitHub Codebase</span>
-                    </a>
-                  )}
-                  {activeProject.live && (
-                    <a
-                      href={activeProject.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-2.5 text-xs font-bold text-primary hover:opacity-90 font-mono shadow-md"
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      <span>Open Live Demo</span>
-                    </a>
-                  )}
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setSelectedProject(null)}
-                  className="px-4 py-2 text-xs font-bold text-ink-muted hover:text-ink"
-                >
-                  Close
-                </button>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
     </section>
   );
 }

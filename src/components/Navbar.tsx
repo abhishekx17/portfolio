@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, MoonStar, Sparkles, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { navLinks, personalInfo } from "../data/portfolio";
 import { useScrollProgress } from "../hooks/useScrollProgress";
-import { useTheme } from "../hooks/useTheme";
 import { smoothEase, springTransition } from "../lib/motion";
 import { SocialIcons } from "./icons/SocialIcons";
 
@@ -12,13 +11,12 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#home");
   const progress = useScrollProgress();
-  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 25);
 
-      const sections = ["home", "about", "stack", "projects", "highlights", "contact"];
+      const sections = ["home", "about", "projects", "contact"];
       const current = sections.find((sec) => {
         const el = document.getElementById(sec);
         if (el) {
@@ -105,7 +103,7 @@ export function Navbar() {
               })}
             </ul>
 
-            {/* Right: Theme Switcher & Social Links */}
+            {/* Right: Social Links */}
             <div className="flex items-center gap-2">
               <div className="hidden md:flex items-center gap-1 rounded-full bg-surface-elevated/80 border border-border/70 p-1 shadow-xs">
                 <a
@@ -137,43 +135,10 @@ export function Navbar() {
                 </a>
               </div>
 
-              {/* Theme Toggle Button */}
-              <motion.button
-                whileTap={{ scale: 0.92 }}
-                onClick={toggleTheme}
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-surface text-ink hover:border-accent/40 hover:bg-surface-elevated transition-all duration-300 shadow-xs"
-                aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
-                title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
-              >
-                <AnimatePresence mode="wait" initial={false}>
-                  {theme === "dark" ? (
-                    <motion.div
-                      key="sparkles"
-                      initial={{ scale: 0.5, rotate: -45, opacity: 0 }}
-                      animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                      exit={{ scale: 0.5, rotate: 45, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <Sparkles className="h-3.5 w-3.5 text-accent" />
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="moonstar"
-                      initial={{ scale: 0.5, rotate: 45, opacity: 0 }}
-                      animate={{ scale: 1, rotate: 0, opacity: 1 }}
-                      exit={{ scale: 0.5, rotate: -45, opacity: 0 }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      <MoonStar className="h-3.5 w-3.5 text-ink-muted hover:text-ink" />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </motion.button>
-
               <button
                 type="button"
                 onClick={() => setMobileOpen(true)}
-                className="md:hidden p-2 text-ink hover:text-accent transition-colors"
+                className="md:hidden p-2 text-ink hover:text-[#ff8a00] transition-colors"
                 aria-label="Open menu"
               >
                 <Menu className="h-5 w-5" />

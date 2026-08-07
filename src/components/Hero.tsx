@@ -1,440 +1,181 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  ArrowUpRight,
-  Code2,
-  Globe,
-  Layers,
-  MapPin,
-  Download,
-  Eye,
-  FileText,
-  CheckCircle2,
-  ZoomIn,
-  Sparkles,
-  Terminal,
-  X,
-} from "lucide-react";
-import { personalInfo, resumeDetails } from "../data/portfolio";
-import { staggerContainer, fadeInUp } from "../lib/motion";
+import { motion } from "framer-motion";
 
-interface HeroProps {
-  onShowToast?: (message: string) => void;
-}
-
-export function Hero({ onShowToast }: HeroProps) {
-  const [imageError, setImageError] = useState(false);
-  const [activeTab, setActiveTab] = useState<"visual" | "code">("visual");
-  const [zoomModalOpen, setZoomModalOpen] = useState(false);
-
-  const handleDownload = () => {
-    onShowToast?.("Resume download initiated!");
-  };
-
+export function Hero() {
   return (
-    <section id="home" className="relative min-h-[88vh] flex flex-col justify-center pt-28 pb-16 overflow-hidden select-none">
-      <div className="mx-auto w-full max-w-6xl px-4 md:px-6 relative z-10 flex-1 flex flex-col justify-center">
+    <section className="relative w-full min-h-[50vh] flex flex-col justify-center items-center grid-paper overflow-hidden select-none pb-24 pt-20">
+      {/* Decorative Star Doodles (SVG Vector) */}
+      <motion.div
+        animate={{ y: [0, -8, 0], rotate: [0, 5, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-12 left-[10%] w-10 h-10 text-[#ff8a00] hidden md:block"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+        </svg>
+      </motion.div>
+
+      <motion.div
+        animate={{ y: [0, 8, 0], rotate: [0, -5, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute bottom-16 right-[12%] w-12 h-12 text-[#ff8a00] hidden md:block"
+      >
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4Z" />
+        </svg>
+      </motion.div>
+
+      {/* Floating Outline Sparkles */}
+      <motion.div
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-16 right-[20%] w-6 h-6 text-zinc-400 hidden sm:block"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M12 2L15 9L22 12L15 15L12 22L9 15L2 12L9 9Z" />
+        </svg>
+      </motion.div>
+
+      <div className="relative z-10 max-w-4xl w-full px-4 text-center flex flex-col items-center">
+        {/* Year Badge inside a sketchy loop */}
         <motion.div
-          variants={staggerContainer}
-          initial="hidden"
-          animate="visible"
-          className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center"
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="relative inline-block mb-3"
         >
-          {/* Left Column: Headline, Bio & CTAs */}
-          <div className="lg:col-span-7 space-y-6 sm:space-y-8 lg:pr-6 min-w-0 w-full">
-            {/* Profile Avatar & Status Badges Header */}
-            <motion.div variants={fadeInUp} className="flex flex-col xs:flex-row items-start xs:items-center gap-3 sm:gap-4 max-w-full">
-              <div className="relative group shrink-0">
-                <div className="h-14 w-14 sm:h-20 sm:w-20 rounded-full p-0.5 bg-gradient-to-tr from-accent via-emerald-500 to-indigo-500 shadow-lg overflow-hidden group-hover:scale-105 transition-transform duration-300">
-                  <img
-                    src="/linkedin-pfp.jpeg"
-                    alt="Abhishek Kumar Profile Photo"
-                    className="h-full w-full object-cover rounded-full"
-                  />
-                </div>
-                {/* Active Pulse Ring */}
-                <span className="absolute bottom-0 right-0 flex h-3.5 w-3.5 sm:h-4.5 sm:w-4.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                  <span className="relative inline-flex rounded-full h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 bg-emerald-500 border-2 border-surface" />
-                </span>
-              </div>
+          {/* Sketchy Circle Loop Border */}
+          <svg
+            viewBox="0 0 100 40"
+            fill="none"
+            className="absolute inset-0 -top-2 -left-2 w-[116%] h-[120%] text-neutral-800 opacity-80"
+          >
+            <path
+              d="M10,20 C30,5 80,8 90,20 C100,32 30,38 12,30 C5,27 6,18 25,12"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+            />
+          </svg>
+          <span className="font-handwritten text-3xl font-bold text-neutral-800 px-4 py-1 relative z-10">
+            {new Date().getFullYear()}
+          </span>
+        </motion.div>
 
-              <div className="space-y-1.5 min-w-0 flex-1 max-w-full">
-                <div className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-2.5 sm:px-3.5 py-1 text-[10px] sm:text-xs font-semibold text-emerald-500 shadow-xs">
-                  <span className="relative flex h-2 w-2 shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
-                  </span>
-                  <span className="truncate">{personalInfo.availability}</span>
-                </div>
+        {/* Custom Mismatched stylized hand-drawn title "Portfolio" */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex items-center justify-center space-x-1 sm:space-x-3 mb-6 flex-wrap select-none text-neutral-900"
+        >
+          {/* P */}
+          <span className="font-display font-extrabold text-6xl sm:text-8xl tracking-tight scale-x-95">
+            P
+          </span>
 
-                <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-medium text-ink-muted">
-                  <span className="inline-flex items-center gap-1">
-                    <MapPin className="h-3 w-3 text-accent shrink-0" />
-                    <span>{personalInfo.location}</span>
-                  </span>
-                  <span className="text-ink-faint">•</span>
-                  <span className="text-ink font-semibold">Full-Stack Engineer</span>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Main Headline */}
-            <motion.h1
-              variants={fadeInUp}
-              className="font-display text-2xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-extrabold tracking-tight leading-[1.12] text-ink break-words"
+          {/* o (smiley face) */}
+          <div className="relative w-14 h-14 sm:w-20 sm:h-20 flex items-center justify-center shrink-0">
+            <svg
+              viewBox="0 0 100 100"
+              fill="currentColor"
+              className="w-full h-full text-yellow-400 drop-shadow-[2px_2px_0px_rgba(0,0,0,1)]"
             >
-              Architecting <br className="hidden sm:block" />
-              Full-Stack Web <br className="hidden sm:block" />
-              Experiences.
-            </motion.h1>
-
-            {/* Bio Paragraph */}
-            <motion.p
-              variants={fadeInUp}
-              className="max-w-xl text-xs sm:text-base md:text-lg text-ink-muted leading-relaxed font-normal"
-            >
-              Hi, I'm <strong className="text-ink font-semibold">{personalInfo.fullName}</strong> — a Full-Stack Engineer & MERN Specialist building performant web applications, clean REST API architectures, and modern user interfaces.
-            </motion.p>
-
-            {/* CTA Buttons Group */}
-            <motion.div
-              variants={fadeInUp}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 pt-1 w-full"
-            >
-              <a
-                href="#projects"
-                className="group relative inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 sm:px-7 py-3 text-xs font-bold text-primary hover:opacity-95 transition-all duration-300 shadow-md text-center w-full sm:w-auto"
-              >
-                <span>View Selected Work</span>
-                <ArrowUpRight className="h-4 w-4 shrink-0 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-              </a>
-
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                <a
-                  href={personalInfo.resumeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-surface px-4 py-3 text-xs font-bold text-ink hover:bg-surface-elevated transition-all duration-300 shadow-xs"
-                >
-                  <FileText className="h-3.5 w-3.5 text-ink-muted shrink-0" />
-                  <span>Resume</span>
-                </a>
-
-                <a
-                  href="#contact"
-                  className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-surface-elevated px-4 py-3 text-xs font-bold text-ink hover:border-border-strong transition-all duration-300 shadow-xs text-center"
-                >
-                  <span>Contact</span>
-                </a>
-              </div>
-            </motion.div>
-
-            {/* Bottom Quick Feature Highlights */}
-            <motion.div
-              variants={fadeInUp}
-              className="pt-4 sm:pt-6 flex flex-wrap items-center gap-3 sm:gap-6 border-t border-border/80 text-[11px] sm:text-xs text-ink-muted font-mono font-medium"
-            >
-              <div className="flex items-center gap-1.5">
-                <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted shrink-0">
-                  <Layers className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                </div>
-                <span>2 Production Apps</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted shrink-0">
-                  <Code2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                </div>
-                <span>React & Node.js</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <div className="flex h-5 w-5 sm:h-6 sm:w-6 items-center justify-center rounded-lg bg-surface border border-border text-ink-muted shrink-0">
-                  <Globe className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-                </div>
-                <span>REST APIs & MongoDB</span>
-              </div>
-            </motion.div>
+              <circle cx="50" cy="50" r="45" stroke="#121212" strokeWidth="5" />
+              <circle cx="35" cy="40" r="6" fill="#121212" />
+              <circle cx="65" cy="40" r="6" fill="#121212" />
+              <path
+                d="M30,60 C40,75 60,75 70,60"
+                stroke="#121212"
+                strokeWidth="6"
+                strokeLinecap="round"
+                fill="none"
+              />
+            </svg>
           </div>
 
-          {/* Right Column: Dual-Tab Interactive Resume Card */}
-          <motion.div variants={fadeInUp} className="lg:col-span-5 flex justify-center lg:justify-end w-full max-w-full">
-            <div className="w-full max-w-full sm:max-w-md rounded-3xl border border-border bg-surface shadow-xl overflow-hidden transition-all duration-300 hover:border-border-strong">
-              {/* Window Header + Tabs */}
-              <div className="flex items-center justify-between border-b border-border bg-surface-elevated/80 px-2.5 sm:px-4 py-2.5 sm:py-3 select-none flex-wrap gap-2">
-                <div className="hidden xs:flex items-center gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-border-strong inline-block" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-border-strong inline-block" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-border-strong inline-block" />
-                </div>
+          {/* r */}
+          <span className="font-handwritten font-black text-6xl sm:text-8xl tracking-tight rotate-6 text-neutral-800">
+            r
+          </span>
 
-                {/* Switcher Tabs */}
-                <div className="flex items-center gap-1 rounded-xl bg-surface p-1 border border-border text-xs font-medium">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("visual")}
-                    className={`flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg transition-colors text-[10px] sm:text-[11px] font-bold ${
-                      activeTab === "visual"
-                        ? "bg-ink text-primary shadow-xs"
-                        : "text-ink-muted hover:text-ink"
-                    }`}
-                  >
-                    <Eye className="h-3 w-3" />
-                    <span>Visual</span>
-                  </button>
+          {/* t */}
+          <span className="font-display font-black text-6xl sm:text-8xl tracking-tighter text-neutral-900">
+            t
+          </span>
 
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("code")}
-                    className={`flex items-center gap-1 px-2.5 sm:px-3 py-1 rounded-lg transition-colors text-[10px] sm:text-[11px] font-bold ${
-                      activeTab === "code"
-                        ? "bg-ink text-primary shadow-xs"
-                        : "text-ink-muted hover:text-ink"
-                    }`}
-                  >
-                    <Terminal className="h-3 w-3" />
-                    <span>Code</span>
-                  </button>
-                </div>
+          {/* f */}
+          <span className="font-serif-display italic font-black text-6xl sm:text-8xl text-neutral-800 -translate-y-2">
+            f
+          </span>
 
-                <span className="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-mono font-bold text-emerald-500">
-                  <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-                  VERIFIED
-                </span>
-              </div>
+          {/* o (striped circle) */}
+          <div className="relative w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 100 100" className="w-full h-full text-neutral-900">
+              <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="8" fill="none" />
+              <line x1="25" y1="25" x2="75" y2="75" stroke="currentColor" strokeWidth="8" />
+              <line x1="20" y1="50" x2="80" y2="50" stroke="currentColor" strokeWidth="8" />
+              <line x1="25" y1="75" x2="75" y2="25" stroke="currentColor" strokeWidth="8" />
+            </svg>
+          </div>
 
-              {/* Tab Content Body */}
-              <div className="p-4 bg-surface/40 min-h-[350px] flex flex-col justify-center">
-                <AnimatePresence mode="wait">
-                  {activeTab === "visual" ? (
-                    <motion.div
-                      key="visual"
-                      initial={{ opacity: 0, scale: 0.96 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.96 }}
-                      transition={{ duration: 0.2 }}
-                      className="relative group/preview overflow-hidden rounded-2xl border border-border bg-surface shadow-xs"
-                    >
-                      {!imageError ? (
-                        <img
-                          src="/resume-preview.png"
-                          alt="Abhishek Kumar Resume Preview"
-                          onError={() => setImageError(true)}
-                          className="w-full max-h-[360px] object-cover object-top transition-transform duration-500 group-hover/preview:scale-105"
-                        />
-                      ) : (
-                        <div className="p-6 space-y-4 bg-surface text-ink font-sans text-xs">
-                          <div className="flex items-center justify-between border-b border-border pb-3">
-                            <div className="flex items-center gap-3">
-                              <img
-                                src="/linkedin-pfp.jpeg"
-                                alt="Abhishek Kumar PFP"
-                                className="h-10 w-10 rounded-full object-cover border border-border shadow-xs shrink-0"
-                              />
-                              <div>
-                                <h3 className="font-display font-extrabold text-lg text-ink tracking-tight">
-                                  {personalInfo.fullName}
-                                </h3>
-                                <p className="text-ink-muted font-semibold text-xs mt-0.5">
-                                  {personalInfo.title}
-                                </p>
-                              </div>
-                            </div>
-                            <span className="rounded-full bg-surface-elevated border border-border px-3 py-1 text-[10px] font-mono font-bold">
-                              MERN & TS
-                            </span>
-                          </div>
+          {/* l */}
+          <span className="font-playful font-black text-6xl sm:text-8xl text-neutral-900">
+            l
+          </span>
 
-                          <div className="space-y-1.5">
-                            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">
-                              Education
-                            </p>
-                            <p className="font-bold text-ink text-xs">{personalInfo.degree}</p>
-                            <p className="text-ink-muted text-[11px]">{personalInfo.college}</p>
-                          </div>
+          {/* i */}
+          <span className="font-display font-light text-6xl sm:text-8xl text-neutral-800">
+            i
+          </span>
 
-                          <div className="space-y-1.5">
-                            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">
-                              Primary Stack
-                            </p>
-                            <div className="flex flex-wrap gap-1.5 font-mono">
-                              {resumeDetails.primarySkills.map((sk) => (
-                                <span
-                                  key={sk}
-                                  className="rounded-md bg-surface-elevated border border-border px-2 py-0.5 text-[10px] font-semibold text-ink-muted"
-                                >
-                                  {sk}
-                                </span>
-                              ))}
-                            </div>
-                          </div>
+          {/* o (target swirl) */}
+          <div className="relative w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shrink-0">
+            <svg viewBox="0 0 100 100" className="w-full h-full text-neutral-900" fill="none">
+              <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="6" />
+              <circle cx="50" cy="50" r="24" stroke="currentColor" strokeWidth="6" />
+              <circle cx="50" cy="50" r="8" fill="currentColor" />
+            </svg>
+          </div>
+        </motion.div>
 
-                          <div className="space-y-1.5 pt-1">
-                            <p className="font-mono text-[10px] font-bold uppercase tracking-wider text-ink-faint">
-                              Highlights
-                            </p>
-                            <ul className="space-y-1.5 text-ink-muted text-[11px]">
-                              {resumeDetails.highlights.map((h, idx) => (
-                                <li key={idx} className="flex items-center gap-1.5">
-                                  <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 shrink-0" />
-                                  <span>{h}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Hover Overlay Button */}
-                      <div className="absolute inset-0 bg-primary/60 backdrop-blur-xs opacity-0 group-hover/preview:opacity-100 transition-opacity duration-300 flex items-center justify-center p-4">
-                        <button
-                          type="button"
-                          onClick={() => setZoomModalOpen(true)}
-                          className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-xs font-extrabold text-primary shadow-xl hover:scale-105 transition-transform"
-                        >
-                          <ZoomIn className="h-4 w-4" />
-                          <span>Expand Full View</span>
-                        </button>
-                      </div>
-                    </motion.div>
-                  ) : (
-                    <motion.div
-                      key="code"
-                      initial={{ opacity: 0, scale: 0.96 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.96 }}
-                      transition={{ duration: 0.2 }}
-                      className="rounded-2xl border border-border bg-surface p-5 font-mono text-[11px] text-ink-muted leading-relaxed overflow-x-auto custom-scrollbar"
-                    >
-                      <div className="text-ink-faint mb-2">// resume.config.ts</div>
-                      <div>
-                        <span className="text-ink font-bold">export const</span> candidate = &#123;
-                        <br />
-                        &nbsp;&nbsp;name: <span className="text-ink">"{personalInfo.fullName}"</span>,
-                        <br />
-                        &nbsp;&nbsp;role: <span className="text-ink">"{personalInfo.title}"</span>,
-                        <br />
-                        &nbsp;&nbsp;education: <span className="text-ink">"B.Tech CSE (2022–2026)"</span>,
-                        <br />
-                        &nbsp;&nbsp;location: <span className="text-ink">"{personalInfo.location}"</span>,
-                        <br />
-                        &nbsp;&nbsp;stack: [<span className="text-ink">"React"</span>, <span className="text-ink">"Node.js"</span>, <span className="text-ink">"Express"</span>, <span className="text-ink">"MongoDB"</span>, <span className="text-ink">"TypeScript"</span>],
-                        <br />
-                        &nbsp;&nbsp;projects: [<span className="text-ink">"QuickEMS"</span>, <span className="text-ink">"Velora"</span>],
-                        <br />
-                        &nbsp;&nbsp;status: <span className="text-emerald-500 font-bold">"Available for Roles"</span>
-                        <br />
-                        &#125;;
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-
-              {/* Bottom Actions Bar */}
-              <div className="border-t border-border bg-surface px-4 py-3.5">
-                <div className="grid grid-cols-2 gap-2.5">
-                  <a
-                    href={personalInfo.resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl bg-ink px-4 py-2.5 text-xs font-bold text-primary hover:opacity-90 transition-all shadow-xs"
-                  >
-                    <Eye className="h-3.5 w-3.5" />
-                    <span>View PDF</span>
-                  </a>
-
-                  <a
-                    href={personalInfo.resumeUrl}
-                    download="Abhishek_Kumar_Resume.pdf"
-                    onClick={handleDownload}
-                    className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-border bg-surface-elevated px-4 py-2.5 text-xs font-bold text-ink hover:border-border-strong transition-all shadow-xs"
-                  >
-                    <Download className="h-3.5 w-3.5 text-ink-muted" />
-                    <span>Download</span>
-                  </a>
-                </div>
-
-                <div className="flex items-center justify-between pt-3 text-[11px] font-mono text-ink-faint">
-                  <span className="flex items-center gap-1.5 text-emerald-500 font-semibold">
-                    <CheckCircle2 className="h-3 w-3" />
-                    Official PDF Ready
-                  </span>
-                  <span>B.Tech CSE (2022–2026)</span>
-                </div>
-              </div>
-            </div>
-          </motion.div>
+        {/* Categories / Tagline */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="flex flex-wrap items-center justify-center gap-2 text-neutral-600 text-base sm:text-xl font-bold font-handwritten tracking-wider"
+        >
+          <span>Full-Stack Engineer</span>
+          <span className="text-[#ff8a00] font-black text-lg sm:text-xl">•</span>
+          <span>MERN Specialist</span>
+          <span className="text-[#ff8a00] font-black text-lg sm:text-xl">•</span>
+          <span>Creative Coder</span>
         </motion.div>
       </div>
 
-      {/* Zoom Modal for Full Resume Preview */}
-      <AnimatePresence>
-        {zoomModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-primary/95 backdrop-blur-xl overflow-y-auto select-auto"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) setZoomModalOpen(false);
-            }}
-          >
-            <motion.div
-              initial={{ scale: 0.92, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.92, opacity: 0 }}
-              className="relative w-full max-w-3xl rounded-3xl border border-border bg-surface shadow-2xl p-6 sm:p-8 space-y-6 my-auto"
-            >
-              <button
-                type="button"
-                onClick={() => setZoomModalOpen(false)}
-                className="absolute top-4 right-4 p-2 text-ink-muted hover:text-ink rounded-full bg-surface-elevated border border-border"
-              >
-                <X className="h-5 w-5" />
-              </button>
-
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-elevated border border-border text-ink">
-                  <Sparkles className="h-5 w-5" />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-bold text-ink">{personalInfo.fullName} — Official Resume</h3>
-                  <p className="text-xs text-ink-muted">{personalInfo.title} • {personalInfo.degree}</p>
-                </div>
-              </div>
-
-              {/* Resume Image Container */}
-              <div className="rounded-2xl border border-border overflow-hidden max-h-[60vh] overflow-y-auto custom-scrollbar bg-surface-elevated p-2">
-                <img
-                  src="/resume-preview.png"
-                  alt="Resume Full Preview"
-                  onError={() => setImageError(true)}
-                  className="w-full h-auto object-contain rounded-xl"
-                />
-              </div>
-
-              <div className="flex items-center justify-end gap-3 pt-2 border-t border-border">
-                <button
-                  type="button"
-                  onClick={() => setZoomModalOpen(false)}
-                  className="px-5 py-2.5 text-xs font-bold text-ink-muted hover:text-ink"
-                >
-                  Close
-                </button>
-                <a
-                  href={personalInfo.resumeUrl}
-                  download="Abhishek_Kumar_Resume.pdf"
-                  onClick={handleDownload}
-                  className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-2.5 text-xs font-bold text-primary hover:opacity-90 shadow-lg font-mono"
-                >
-                  <Download className="h-4 w-4" />
-                  <span>Download PDF Document</span>
-                </a>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* Jagged Torn Paper SVG Divider at bottom of Header */}
+      <div className="absolute bottom-0 left-0 w-full overflow-visible z-20 translate-y-[2px]">
+        <svg
+          viewBox="0 0 1440 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full overflow-visible block"
+          preserveAspectRatio="none"
+        >
+          {/* Shadow/Edge accent layer */}
+          <path
+            d="M0,0 L0,50 L25,43 L50,56 L75,41 L110,54 L145,46 L180,58 L215,44 L250,55 L285,42 L320,53 L355,45 L390,56 L425,41 L460,54 L495,46 L530,58 L565,43 L600,55 L635,42 L670,53 L705,45 L740,56 L775,41 L810,54 L845,46 L880,58 L915,43 L950,55 L985,42 L1020,53 L1055,45 L1090,56 L1125,41 L1160,54 L1195,46 L1230,58 L1265,43 L1300,55 L1335,42 L1370,53 L1405,45 L1440,50 L1440,0 Z"
+            fill="#faf9f6"
+          />
+          {/* Sketchy pencil line for high-quality depth */}
+          <path
+            d="M0,50 L25,43 L50,56 L75,41 L110,54 L145,46 L180,58 L215,44 L250,55 L285,42 L320,53 L355,45 L390,56 L425,41 L460,54 L495,46 L530,58 L565,43 L600,55 L635,42 L670,53 L705,45 L740,56 L775,41 L810,54 L845,46 L880,58 L915,43 L950,55 L985,42 L1020,53 L1055,45 L1090,56 L1125,41 L1160,54 L1195,46 L1230,58 L1265,43 L1300,55 L1335,42 L1370,53 L1405,45 L1440,50"
+            stroke="#d4ceb8"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </div>
     </section>
   );
 }

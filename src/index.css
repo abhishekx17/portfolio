@@ -1,9 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --font-display: "Outfit", system-ui, sans-serif;
-  --font-body: "Plus Jakarta Sans", system-ui, sans-serif;
+  --font-display: "Syne", system-ui, sans-serif;
+  --font-body: "Outfit", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
+  --font-handwritten: "Caveat", cursive, sans-serif;
+  --font-playful: "Fredoka", sans-serif;
+  --font-serif-display: "Playfair Display", serif;
+  --font-sketchy: "Fredericka the Great", serif;
+  --font-sketchy-sans: "Cabin Sketch", sans-serif;
 
   --color-primary: var(--bg-primary);
   --color-secondary: var(--bg-secondary);
@@ -20,41 +25,30 @@
 }
 
 :root {
-  --bg-primary: #09090b;
-  --bg-secondary: #121215;
-  --bg-surface: #18181b;
-  --bg-elevated: #27272a;
-  --text-ink: #fafafa;
+  --bg-primary: #1e1e1e;
+  --bg-secondary: #222222;
+  --bg-surface: #282828;
+  --bg-elevated: #363636;
+  --text-ink: #faf9f6;
   --text-muted: #a1a1aa;
   --text-faint: #71717a;
   --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-accent: rgba(255, 255, 255, 0.25);
-  --accent-primary: #ffffff;
-  --accent-hover: #e4e4e7;
-  --accent-subtle: rgba(255, 255, 255, 0.1);
+  --border-accent: rgba(255, 255, 255, 0.2);
+  --accent-primary: #ff8a00;
+  --accent-hover: #e07b00;
+  --accent-subtle: rgba(255, 138, 0, 0.1);
   --card-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.6);
-  --grid-pattern-color: rgba(255, 255, 255, 0.04);
-}
-
-html.light {
-  --bg-primary: #fcfcfc;
-  --bg-secondary: #f4f4f5;
-  --bg-surface: #ffffff;
-  --bg-elevated: #e4e4e7;
-  --text-ink: #09090b;
-  --text-muted: #52525b;
-  --text-faint: #71717a;
-  --border-subtle: rgba(0, 0, 0, 0.08);
-  --border-accent: rgba(0, 0, 0, 0.25);
-  --accent-primary: #09090b;
-  --accent-hover: #18181b;
-  --accent-subtle: rgba(0, 0, 0, 0.08);
-  --card-shadow: 0 4px 12px -4px rgba(0, 0, 0, 0.05);
-  --grid-pattern-color: rgba(0, 0, 0, 0.03);
+  --grid-pattern-color: rgba(0, 0, 0, 0.06);
 }
 
 * {
   box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+  *, a, button, input, textarea, select, [role="button"] {
+    cursor: none !important;
+  }
 }
 
 html {
@@ -69,17 +63,16 @@ body {
   color: var(--text-ink);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background-color 0.3s ease, color 0.3s ease;
   overflow-x: hidden;
 }
 
 ::selection {
-  background: var(--text-ink);
-  color: var(--bg-primary);
+  background: var(--accent-primary);
+  color: #121212;
 }
 
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -87,12 +80,21 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--text-faint);
+  background: #3f3f46;
   border-radius: 999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--accent-primary);
+}
+
+/* Grid Paper Background */
+.grid-paper {
+  background-color: #faf9f6;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
 /* Glassmorphism & Bento Card Utilities */
@@ -103,40 +105,43 @@ body {
   transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card:hover {
-  border-color: var(--border-accent);
+/* Polaroid Card Effect */
+.polaroid-card {
+  background-color: #ffffff;
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-/* Side Column Diagonal Pattern */
-.side-grid-pattern {
-  background-image: linear-gradient(
-    45deg,
-    var(--grid-pattern-color) 12.5%,
-    transparent 12.5%,
-    transparent 50%,
-    var(--grid-pattern-color) 50%,
-    var(--grid-pattern-color) 62.5%,
-    transparent 62.5%,
-    transparent 100%
-  );
-  background-size: 8px 8px;
+/* Custom Tape Look */
+.masking-tape {
+  background-color: rgba(220, 215, 195, 0.7);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  transform: rotate(-2deg);
 }
 
-/* Custom Scrollbar */
-.custom-scrollbar::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+/* Font Classes */
+.font-handwritten {
+  font-family: var(--font-handwritten), cursive;
 }
 
-.custom-scrollbar::-webkit-scrollbar-track {
-  background: transparent;
+.font-playful {
+  font-family: var(--font-playful), sans-serif;
 }
 
-.custom-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--border-accent);
+.font-serif-display {
+  font-family: var(--font-serif-display), serif;
+}
+
+.font-sketchy {
+  font-family: var(--font-sketchy), serif;
+}
+
+.font-sketchy-sans {
+  font-family: var(--font-sketchy-sans), sans-serif;
+}
+
+/* Sketchy border */
+.sketchy-border {
+  border: 2px solid #121212;
   border-radius: 4px;
-}
-
-.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
 }
