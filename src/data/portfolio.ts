@@ -41,7 +41,7 @@ export const projects = [
     ],
     tags: ['React 19', 'Node.js', 'Express', 'MongoDB', 'Groq AI', 'Puppeteer'],
     github: 'https://github.com/abhishekx17/PrepAI',
-    live: 'https://prepai-interview.vercel.app',
+    live: 'https://prep-ai-pied-eta.vercel.app/',
   },
   {
     id: '02',
